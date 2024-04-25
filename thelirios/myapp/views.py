@@ -16,7 +16,7 @@ def productRegistration(request):
 
         form = ProductForm(request.POST)
         if form.is_valid():
-            #form.save()
+            form.save()
             return redirect("list")
 
     else:
