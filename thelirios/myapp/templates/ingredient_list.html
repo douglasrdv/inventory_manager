@@ -6,6 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <p>lista</p>
+    <p>lista de Ingredientes</p>
+
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.cost }}</li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>

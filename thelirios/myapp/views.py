@@ -1,14 +1,17 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
 from django.template import loader
-
+from .models import Ingredient
 from .forms import ProductForm
 
 
 def home(request):
-    return HttpResponse("Hello world!")
-
-def index(request):
     return render(request, "index.html")
+
+
+def listIngredients(request):
+    ingredients = Ingredient.objects.all()
+    return render(request, "ingredient_list.html", {"ingredients": ingredients})
+
 
 def productRegistration(request):
 
