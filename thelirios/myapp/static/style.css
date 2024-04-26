@@ -7,3 +7,37 @@
 .center{
     margin: auto;
 }
+
+.list-cont{
+    width: 60%;
+    border: solid 2px #eee;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 2px 2px 5px #5e5964;
+}
+
+.title{
+    font-weight: 600;
+    font-size: large;
+    color: rgb(86, 87, 112);
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p.row1, p.row2{
+    padding: 10px;
+    margin: 0;
+    color: rgb(86, 87, 112);
+
+}
+
+.row1{
+    background-color: #eee;
+}
+
+.row2{
+
+}

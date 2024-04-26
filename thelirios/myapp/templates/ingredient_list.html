@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/style.css">
+
     <title>Document</title>
 </head>
 <body>
-    <p>lista de Ingredientes</p>
 
-    <ul>
+    <div class="list-cont">
+    <p class="title">lista de Ingredientes</p>
+
         {% for ingredient in ingredients %}
-            <li>{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.cost }}</li>
+            <p class="{% cycle 'row1' 'row2' %}">{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.cost }}</p>
         {% endfor %}
-    </ul>
+
+    </div>
 
 </body>
 </html>
