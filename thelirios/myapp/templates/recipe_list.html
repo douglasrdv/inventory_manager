@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="list-cont">
+    <p class="title">lista de Ingredientes</p>
+
+        {% for recipe in recipes %}
+            <p class="{% cycle 'row1' 'row2' %}">{{ recipe.id }} - {{ recipe.title }}</p>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
