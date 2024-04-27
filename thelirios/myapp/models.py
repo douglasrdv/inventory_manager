@@ -22,3 +22,13 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    description = models.TextField(max_length=300, blank=True, null=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    recipes = models.ManyToManyField("Recipe")
+
+    def __str__(self):
+        return self.name
