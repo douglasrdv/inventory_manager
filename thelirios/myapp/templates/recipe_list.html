@@ -8,7 +8,7 @@
 <body>
 
     <div class="list-cont">
-    <p class="title">lista de Ingredientes</p>
+    <p class="title">Lista de Receitas!</p>
 
         {% for recipe in recipes %}
             <p class="{% cycle 'row1' 'row2' %}">{{ recipe.id }} - {{ recipe.title }}</p>

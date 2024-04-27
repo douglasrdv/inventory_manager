@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
 from django.template import loader
 from .models import Ingredient, Recipe
-from .forms import ProductForm
+from .forms import IngredientForm, RecipeForm
 
 
 def home(request):
@@ -18,16 +18,31 @@ def list_all_recipes(request):
     return render(request, "recipe_list.html", {"recipes": recipes})
 
 
-def productRegistration(request):
+def ingredient_registration(request):
 
     if request.method == "POST":
 
-        form = ProductForm(request.POST)
+        form = IngredientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("list")
+            return redirect("ingredients-list")
 
     else:
-        form = ProductForm()
+        form = IngredientForm()
 
     return render(request, "ingredient_registration.html", {"form": form})
+
+
+def recipe_registration(request):
+
+    if request.method == "POST":
+
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("recipes-list")
+
+    else:
+        form = RecipeForm()
+
+    return render(request, "recipe_registration.html", {"form": form})

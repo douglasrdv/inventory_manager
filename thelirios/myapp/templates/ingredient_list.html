@@ -11,7 +11,7 @@
 <body>
 
     <div class="list-cont">
-    <p class="title">lista de Ingredientes</p>
+    <p class="title">Lista de Ingredientes!</p>
 
         {% for ingredient in ingredients %}
             <p class="{% cycle 'row1' 'row2' %}">{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.cost }}</p>
