@@ -5,18 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
 
-    <title>Lista de Receitas</title>
+    <title>Lista de Produtos</title>
 </head>
 <body>
+    <p class="title">Lista de Produtos!</p>
 
-    <div class="list-cont">
-    <p class="title">Lista de Receitas!</p>
-
-        {% for recipe in recipes %}
-            <p class="{% cycle 'row1' 'row2' %}">{{ recipe.id }} - {{ recipe.title }}</p>
+    {% for product in products %}
+            <p class="{% cycle 'row1' 'row2' %}">{{ product.id }} - {{ product.name }} - {{ product.weight }} - {{ product.cost }}</p>
         {% endfor %}
-
-    </div>
 
 </body>
 </html>
