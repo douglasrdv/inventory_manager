@@ -1,3 +1,10 @@
+*{
+    box-sizing: border-box;
+    /*
+    border: solid 1px red;
+    */
+}
+
 .container{
     margin: auto;
     width: 500px;
@@ -27,11 +34,23 @@
     text-align: center;
 }
 
-p.row1, p.row2{
-    padding: 10px;
-    margin: 0;
+.list-text {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    float: left;
+}
+
+.list-text p{
+    margin: auto 0 auto 10px ;
     color: rgb(86, 87, 112);
 
+}
+
+.row{
+    display: inline-box;
+    margin: 0;
+    height: 50px;
 }
 
 .row1{
@@ -40,4 +59,38 @@ p.row1, p.row2{
 
 .row2{
 
+}
+
+.icon-container{
+    display: flex;
+    height: 100%;
+    width: 8%;
+    float: right;
+}
+
+.icon-container a{
+    display: flex;
+    text-decoration: none;
+    height: 100%;
+    width: 50px;
+}
+
+.list-icon{
+    display: flex;
+    margin: auto;
+    font-size: x-large;
+    text-align: center;
+    vertical-align: middle;
+    line-height: normal;
+    color: rgb(86, 87, 112);
+}
+
+.plus{
+    float: none;
+    margin: auto;
+    text-align: center;
+}
+
+.plus a{
+    margin: auto;
 }

@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
 from django.template import loader
 from .models import Ingredient, Recipe
-from .forms import IngredientForm, RecipeForm
+from .forms import IngredientForm, RecipeForm, RecipeUpdateForm
 
 
 def home(request):
@@ -31,6 +31,30 @@ def ingredient_registration(request):
         form = IngredientForm()
 
     return render(request, "ingredient_registration.html", {"form": form})
+
+def ingredient_delete(request, id):
+    ingredient = Ingredient.objects.get(id = id)
+    ingredient.delete()
+    
+    return redirect("ingredients-list")
+
+
+def ingredient_update(request, id):
+    ingredient = Ingredient.objects.get(id = id)
+
+    if request.method == "POST":
+
+        form = IngredientForm(request.POST, instance=ingredient)
+        if form.is_valid():
+            form.save()
+            return redirect("ingredients-list")
+        
+    else:
+        form = IngredientForm(instance=ingredient)
+
+    context = {"form": form, "ingredient":ingredient}
+    return render(request, "ingredient_update.html", context)
+
 
 
 def recipe_registration(request):
