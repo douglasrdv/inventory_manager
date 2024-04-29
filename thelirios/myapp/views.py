@@ -114,3 +114,26 @@ def product_registration(request):
         form = ProductForm()
 
     return render(request, "product_registration.html", {"form": form})
+
+
+def product_delete(request, id):
+    product = get_object_or_404(Product, id=id)
+    product.delete()
+    return redirect("products-list")
+
+
+def product_update(request, id):
+    product = Product.objects.get(id=id)
+
+    if request.method == "POST":
+
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect("products-list")
+
+    else:
+        form = ProductForm(instance=product)
+
+    context = {"form": form, "product": product}
+    return render(request, "product_update.html", context)

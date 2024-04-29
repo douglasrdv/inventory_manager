@@ -16,4 +16,6 @@ urlpatterns = [
     # Products urls
     path("new-product", views.product_registration, name="new-product"),
     path("products-list", views.list_all_products, name="products-list"),
+    path("product-delete/<int:id>", views.product_delete, name="product-delete"),
+    path("product-update/<int:id>", views.product_update, name="product-update"),
 ]
