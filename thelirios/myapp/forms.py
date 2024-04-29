@@ -31,16 +31,3 @@ class ProductForm(forms.ModelForm):
             "price",
             "recipes",
         ]
-
-
-class RecipeUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Recipe
-        fields = [
-            "title",
-            "ingredients",
-            "amount_yield",
-            "cooking_time",
-            "description",
-            "cost",
-        ]
