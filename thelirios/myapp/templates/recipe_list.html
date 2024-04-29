@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/style.css">
 
     <title>Lista de Receitas</title>
@@ -13,9 +15,23 @@
     <p class="title">Lista de Receitas!</p>
 
         {% for recipe in recipes %}
-            <p class="{% cycle 'row1' 'row2' %}">{{ recipe.id }} - {{ recipe.title }}</p>
-        {% endfor %}
+        <div class="{% cycle 'row1' 'row2' %} row">
+            <div class="list-text">
+                <p>{{ recipe.id }} - {{ recipe.title }}</p>
+            </div>
+            <div class="icon-container">
+                <a href="{%url 'recipe-delete' recipe.id%}"><i class="glyphicon glyphicon-remove list-icon"></i></a>
+            </div>
+            <div class="icon-container">
+                <a href="{%url 'recipe-update' recipe.id%}"><i class="glyphicon glyphicon-pencil list-icon"></i></a>
+            </div>        
 
+    </div>
+    {% endfor %}
+    <div class="{% if recipes|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
+        <div class="icon-container plus">
+            <a href="{%url 'new-recipe'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
+        </div>
     </div>
 
 </body>
