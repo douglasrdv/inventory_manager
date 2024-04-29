@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/style.css">
 
     <title>Lista de Produtos</title>
@@ -11,8 +13,29 @@
     <p class="title">Lista de Produtos!</p>
 
     {% for product in products %}
-            <p class="{% cycle 'row1' 'row2' %}">{{ product.id }} - {{ product.name }} - {{ product.weight }} - {{ product.cost }}</p>
+    <div class="{% cycle 'row1' 'row2' %} row">
+        <div class="list-text">
+            <p>{{ product.id }} - {{ product.name }} - {{ product.weight }} - {{ product.cost }}</p>
+        </div>
+        <div class="icon-container">
+            <a href="{%url 'product-delete' product.id%}"><i class="glyphicon glyphicon-remove list-icon"></i></a>
+        </div>
+        <div class="icon-container">
+            <a href="{%url 'product-update' product.id%}"><i class="glyphicon glyphicon-pencil list-icon"></i></a>
+        </div>        
+    
+    </div>
         {% endfor %}
+        <div class="{% if products|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
+            <div class="icon-container plus">
+                <a href="{%url 'new-product'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
+            </div>
+        </div>
 
 </body>
 </html>
+
+
+
+
+
