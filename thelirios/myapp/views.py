@@ -1,5 +1,4 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
-from django.template import loader
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ingredient, Recipe, Product
 from .forms import IngredientForm, RecipeForm, ProductForm
 from .models import Ingredient, Recipe
@@ -62,6 +61,29 @@ def ingredient_update(request, id):
 
     context = {"form": form, "ingredient": ingredient}
     return render(request, "ingredient_update.html", context)
+
+
+def recipe_delete(request, id):
+    recipe = get_object_or_404(Recipe, id=id)
+    recipe.delete()
+    return redirect("recipes-list")
+
+
+def recipe_update(request, id):
+    recipe = Recipe.objects.get(id=id)
+
+    if request.method == "POST":
+
+        form = RecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect("recipes-list")
+
+    else:
+        form = RecipeForm(instance=recipe)
+
+    context = {"form": form, "recipe": recipe}
+    return render(request, "recipe_update.html", context)
 
 
 def recipe_registration(request):
