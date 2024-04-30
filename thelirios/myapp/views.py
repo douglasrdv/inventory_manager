@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ingredient, Recipe, Product
 from .forms import IngredientForm, RecipeForm, ProductForm
-from .models import Ingredient, Recipe
-from .forms import IngredientForm, RecipeForm
 
 
 def home(request):
