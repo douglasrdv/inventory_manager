@@ -9,6 +9,7 @@
     <title>Atualização do Produto</title>
 </head>
 <body>
+    {% include 'header.html' %}
     {{product.id}}
 
     <form action="{%url 'product-update' product.id%}" method="post">

@@ -108,7 +108,7 @@ def recipe_registration(request):
         form = RecipeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("recipes-list")
+            return redirect("recipe-details")
 
     else:
         form = RecipeForm()
