@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+   
     <title>Recipe Details</title>
 </head>
 <body>
-    <form method="POST">
-    {% csrf_token %}
-    <p>
-        Ingredientes {{ recipe_name }}: 
-    </p>
-    {{ formset.as_p }}
-    <button type="submit">Save</button>
-    </form>
+    <div class="form-cont">
+        <div class="registration-form">
+            <form method="POST">
+                {% csrf_token %}
+                <p class="title">
+                    Ingredientes {{ recipe_name }}: 
+                </p>
+                {{ formset }}
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

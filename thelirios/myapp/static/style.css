@@ -15,6 +15,103 @@
     margin: auto;
 }
 
+.form-cont{
+    width: 40%;
+    border: solid 2px #5e5964;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 2px 2px 5px #5e5964;
+}
+
+.form-cont label{
+    display: flex;
+    margin-left: 5px;
+    margin-bottom: 8px;
+    font-size: small;
+    font-weight: 600;
+    color: #5e5964;
+}
+
+.form-cont input{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 30px;
+    border-color: #5e5964;
+    border-radius: 100px;
+    border-style: solid;
+    padding: 5px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #5e5964;
+    background-color: white;
+
+}
+
+.form-cont textarea{
+    width: 100%;
+    height: 140px;
+    margin-bottom: 30px;
+    border-color: #5e5964;
+    border-radius: 20px;
+    border-style: solid;
+    padding: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    resize: none;
+    color: #5e5964;
+    background-color: white;
+}
+
+.form-cont .helptext{
+    position: absolute;
+    right: 5%;
+    top: 36px;
+    font-size: small;
+    color: #5e5964;
+
+}
+
+.form-cont div:has(.helptext){
+    position: relative;
+}
+
+.form-cont input:hover, .form-cont textarea:hover{
+    background-color: #eee;
+}
+
+.form-cont input:focus, .form-cont textarea:focus{
+    background-color: #eee;
+}
+
+.form-cont input:focus-visible, .form-cont textarea:focus-visible{
+    outline: none;
+}
+
+.form-cont input::-webkit-outer-spin-button,
+.form-cont input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-cont input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+.form-cont form{
+    width: 100%;
+}
+
+.registration-form{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
 .list-cont{
     width: 60%;
     border: solid 2px #eee;
@@ -25,6 +122,8 @@
 }
 
 .title{
+    display: block;
+    width: 100%;
     font-weight: 600;
     font-size: large;
     color: rgb(86, 87, 112);
@@ -58,7 +157,7 @@
 }
 
 .row2{
-
+    background-color: white;
 }
 
 .icon-container{
