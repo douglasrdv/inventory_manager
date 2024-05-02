@@ -25,5 +25,4 @@ class ProductForm(forms.ModelForm):
             "name",
             "description",
             "price",
-            "recipes",
         ]

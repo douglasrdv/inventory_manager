@@ -39,3 +39,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProductRecipe(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.recipe.name} - {self.ingredient.name} - {self.quantity}"

@@ -16,13 +16,13 @@
     {% for product in products %}
     <div class="{% cycle 'row1' 'row2' %} row">
         <div class="list-text">
-            <p>{{ product.id }} - {{ product.name }} - {{ product.weight }} - {{ product.cost }}</p>
+            <p>{{ product.id }} - {{ product.name }} - R$ {{ product.price }}</p>
         </div>
         <div class="icon-container">
             <a href="{%url 'product-delete' product.id%}"><i class="glyphicon glyphicon-remove list-icon"></i></a>
         </div>
         <div class="icon-container">
-            <a href="{%url 'product-update' product.id%}"><i class="glyphicon glyphicon-pencil list-icon"></i></a>
+            <a href="{%url 'product-details' product.id%}"><i class="glyphicon glyphicon-pencil list-icon"></i></a>
         </div>        
     
     </div>

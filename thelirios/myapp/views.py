@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
-from .models import Ingredient, Recipe, Product, RecipeIngredient
+from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe
 from .forms import IngredientForm, RecipeForm, ProductForm
 
 
@@ -107,8 +107,8 @@ def recipe_registration(request):
 
         form = RecipeForm(request.POST)
         if form.is_valid():
-            nova_receita = form.save()
-            return redirect('recipe-details', recipe_id=nova_receita.id)
+            new_recipe = form.save()
+            return redirect('recipe-details', recipe_id=new_recipe.id)
 
     else:
         form = RecipeForm()
@@ -122,8 +122,8 @@ def product_registration(request):
 
         form = ProductForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('products-list')
+            new_product = form.save()
+            return redirect('product-details', product_id=new_product.id)
 
     else:
         form = ProductForm()
@@ -152,3 +152,19 @@ def product_update(request, id):
 
     context = {'form': form, 'product': product}
     return render(request, 'product_update.html', context)
+
+
+def product_details(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    ProductFormset = inlineformset_factory(Product, ProductRecipe, fields=('recipe', 'quantity'), can_delete=True, extra=1)
+
+    if request.method == 'POST':
+        formset = ProductFormset(request.POST, instance=product)
+        if formset.is_valid():
+            formset.save()
+
+            return redirect('products-list')
+
+    formset = ProductFormset(instance=product)
+
+    return render(request, 'product_details.html', {'formset' : formset, 'product_name': product.name})
