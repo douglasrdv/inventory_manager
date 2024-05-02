@@ -13,10 +13,8 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = [
             "name",
-            "amount_yield",
             "cooking_time",
             "description",
-            "cost",
         ]
 
 

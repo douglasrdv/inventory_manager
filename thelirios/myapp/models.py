@@ -3,11 +3,9 @@ from django.db import models
 
 class Recipe(models.Model):
     name = models.CharField(max_length=60, null=False)
-    amount_yield = models.FloatField(max_length=6)
+    ingredients = models.ManyToManyField('Ingredient', through='RecipeIngredient')
     cooking_time = models.IntegerField(help_text="minutes")
     description = models.TextField(max_length=300, blank=True, null=True)
-    cost = models.FloatField(max_length=6)
-    ingredients = models.ManyToManyField('Ingredient', through='RecipeIngredient')
 
     def __str__(self):
         return self.name
