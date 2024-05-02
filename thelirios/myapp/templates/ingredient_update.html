@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+    {% include 'header.html' %}
     {{ingredient.id}}
 
     <form action="{%url 'ingredient-update' ingredient.id%}" method="post">

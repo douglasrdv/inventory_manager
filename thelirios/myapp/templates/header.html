@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <style>
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+    
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'new-ingredient' %}" class="btn">Nova Ingrediente</a>
+        <a href="{% url 'ingredients-list' %}" class="btn">Lista de Ingredientes</a>
+        <a href="{% url 'new-recipe' %}" class="btn">Nova Receita</a>
+        <a href="{% url 'recipes-list' %}" class="btn">Lista de Receitas</a>
+        <a href="{% url 'new-product' %}" class="btn">Novo Produto</a>
+        <a href="{% url 'products-list' %}" class="btn">Lista de Produtos</a>
+    </header>
+</body>
+</html>
+
+
+
+
+
