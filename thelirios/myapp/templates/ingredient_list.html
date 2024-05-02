@@ -17,7 +17,7 @@
         {% for ingredient in ingredients %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text">
-                <p>{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.cost }}</p>
+                <p>{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.brand }}</p>
             </div>
             <div class="icon-container">
                 <a href="{%url 'ingredient-delete' ingredient.id%}"><i class="glyphicon glyphicon-remove list-icon"></i></a>

@@ -5,7 +5,7 @@ from .models import Ingredient, Recipe, Product
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = ["name", "weight", "cost"]
+        fields = ["name", "weight", "brand"]
 
 
 class RecipeForm(forms.ModelForm):
