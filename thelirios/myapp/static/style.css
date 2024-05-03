@@ -97,6 +97,7 @@
 
 .form-cont input[type=number] {
     -moz-appearance: textfield;
+    appearance: none;
   }
 
 .form-cont form{
