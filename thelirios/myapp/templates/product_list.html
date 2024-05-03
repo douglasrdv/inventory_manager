@@ -11,6 +11,7 @@
 </head>
 <body>
     {% include 'header.html' %}
+    <div class="list-cont">
     <p class="title">Lista de Produtos!</p>
 
     {% for product in products %}
@@ -32,6 +33,7 @@
                 <a href="{%url 'new-product'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
             </div>
         </div>
+    </div>
 
 </body>
 </html>
