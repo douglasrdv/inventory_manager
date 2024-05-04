@@ -19,9 +19,15 @@
                 <p class="title">
                     Ingredientes {{ recipe_name }}: 
                 </p>
-                {{ formset }}
-                <button type="submit">Save</button>
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    {{ form }}
+                {% endfor %}
+                <input value="Adicionar" type="submit"></input>
             </form>
+            <a href="{% url 'recipes-list' %}">
+                Voltar
+            </a>
         </div>
     </div>
 </body>

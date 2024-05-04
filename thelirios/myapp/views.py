@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
+from django.http import HttpResponseRedirect
 from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe
 from .forms import IngredientForm, RecipeForm, ProductForm
+
 
 
 def index(request):
@@ -90,11 +92,17 @@ def recipe_details(request, recipe_id):
     IngredientFormset = inlineformset_factory(Recipe, RecipeIngredient, fields=('ingredient', 'quantity'), can_delete=True, extra=1)
 
     if request.method == 'POST':
+        #formset = IngredientFormset(request.POST, instance=recipe, queryset=RecipeIngredient.objects.filter(recipeingredient=recipe_id))
         formset = IngredientFormset(request.POST, instance=recipe)
         if formset.is_valid():
-            formset.save()
 
-            return redirect('recipes-list')
+            formset.save()
+            print(recipe.id)
+
+            return HttpResponseRedirect('%i' %recipe.id)
+        else:
+            print('failed to validate')
+
 
     formset = IngredientFormset(instance=recipe)
 
