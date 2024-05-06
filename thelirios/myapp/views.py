@@ -92,8 +92,12 @@ def recipe_details(request, recipe_id):
     IngredientFormset = inlineformset_factory(Recipe, RecipeIngredient, fields=('ingredient', 'quantity'), can_delete=True, extra=1)
 
     if request.method == 'POST':
-        #formset = IngredientFormset(request.POST, instance=recipe, queryset=RecipeIngredient.objects.filter(recipeingredient=recipe_id))
         formset = IngredientFormset(request.POST, instance=recipe)
+        for form in formset:
+            if not form.is_valid():
+                print('form not valid')
+                print(form)
+
         if formset.is_valid():
 
             formset.save()
@@ -167,7 +171,9 @@ def product_details(request, product_id):
     ProductFormset = inlineformset_factory(Product, ProductRecipe, fields=('recipe', 'quantity'), can_delete=True, extra=1)
 
     if request.method == 'POST':
+
         formset = ProductFormset(request.POST, instance=product)
+        
         if formset.is_valid():
             formset.save()
 

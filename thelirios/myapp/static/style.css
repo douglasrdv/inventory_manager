@@ -195,3 +195,59 @@
 .plus a{
     margin: auto;
 }
+
+.formset-container{
+    display: flex;
+    width: 100%;
+}
+
+.form-ingredient{
+    width: 30%;
+}
+
+.form-ingredient select{
+    width: 100%;
+    height: 40px;
+    border-style: none;
+    padding: 5px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #5e5964;
+    background-color: transparent;
+}
+
+.form-quantity{
+    width: 20%;
+    margin-left: 10%;
+}
+
+.form-quantity input{
+    border-style: none;
+    padding: 5px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #5e5964;
+    background-color: transparent;
+}
+
+.form-delete{
+
+    margin-left: 20%;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #5e5964;
+}
+
+.flex-row{
+    display: flex;
+    align-items: center;
+}
+
+.transparent{
+    border-style: none;
+    text-decoration: none;
+    background-color: transparent;
+}

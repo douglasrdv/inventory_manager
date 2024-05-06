@@ -12,23 +12,32 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <div class="form-cont">
-        <div class="registration-form">
+    <div class="list-cont">
             <form method="POST">
                 {% csrf_token %}
                 <p class="title">
                     Ingredientes {{ recipe_name }}: 
                 </p>
                 {{ formset.management_form }}
+
                 {% for form in formset %}
-                    {{ form }}
+                    <div class="{% cycle 'row1' 'row2' %} row flex-row">
+                        {{ form.id }}
+                        <div class="form-ingredient">{{ form.ingredient }}</div>
+                        <div class="form-quantity">{{ form.quantity }}</div>
+                        <div class="form-delete">Remover {{ form.DELETE }}</div>
+                    </div>   
                 {% endfor %}
-                <input value="Adicionar" type="submit"></input>
+                
+                <div class="{% if formset|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
+                    <div class="icon-container plus">
+                        <button class="transparent" type="submit"><i class="glyphicon glyphicon-plus list-icon"></i></button>
+                    </div>
+                </div>
             </form>
             <a href="{% url 'recipes-list' %}">
                 Voltar
             </a>
-        </div>
     </div>
 </body>
 </html>
