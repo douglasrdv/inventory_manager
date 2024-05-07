@@ -17,6 +17,14 @@ class IngredientForm(forms.ModelForm):
 
 
 class RecipeForm(forms.ModelForm):
+    MEASURE_TYPE_CHOICES = [
+        ("g", "gramas"),
+        ("ml", "mililitros"),
+        ("un", "unidades"),
+    ]
+
+    measure_type = forms.ChoiceField(choices=MEASURE_TYPE_CHOICES, label="Tipo de Medida")
+    
     class Meta:
         model = Recipe
         fields = [
