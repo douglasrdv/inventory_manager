@@ -12,9 +12,16 @@ class Recipe(models.Model):
 
 
 class Ingredient(models.Model):
+    MEASURE_TYPE_CHOICES = [
+        ("g", "gramas"),
+        ("ml", "mililitros"),
+        ("un", "unidades"),
+    ]
+
     name = models.CharField(max_length=60, null=False)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     brand = models.CharField(max_length=15)
+    measure_type = models.CharField(max_length=2, choices=MEASURE_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
