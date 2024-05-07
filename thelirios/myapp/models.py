@@ -11,7 +11,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=60, null=False)
     ingredients = models.ManyToManyField('Ingredient', through='RecipeIngredient')
     cooking_time = models.IntegerField(help_text="minutes")
-    measure_type = models.CharField(max_length=2, choices=MEASURE_TYPE_CHOICES)
+    measure_type = models.CharField(max_length=2, choices=MEASURE_TYPE_CHOICES, blank=False, null=False)
     description = models.TextField(max_length=300, blank=True, null=True)
 
     def __str__(self):
@@ -26,9 +26,9 @@ class Ingredient(models.Model):
     ]
 
     name = models.CharField(max_length=60, null=False)
-    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    weight = models.DecimalField(max_digits=4, decimal_places=0)
     brand = models.CharField(max_length=15)
-    measure_type = models.CharField(max_length=2, choices=MEASURE_TYPE_CHOICES)
+    measure_type = models.CharField(max_length=2, choices=MEASURE_TYPE_CHOICES, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -61,4 +61,4 @@ class ProductRecipe(models.Model):
     quantity = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return f"{self.recipe.name} - {self.ingredient.name} - {self.quantity}"
+        return f"{self.recipe.name} - {self.product.name} - {self.quantity}"
