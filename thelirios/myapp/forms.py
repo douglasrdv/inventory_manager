@@ -1,15 +1,10 @@
 from django import forms
 from .models import Ingredient, Recipe, Product
+from .common.helper import MEASURE_TYPE_CHOICES as mtc
 
 
 class IngredientForm(forms.ModelForm):
-    MEASURE_TYPE_CHOICES = [
-        ("g", "gramas"),
-        ("ml", "mililitros"),
-        ("un", "unidades"),
-    ]
-
-    measure_type = forms.ChoiceField(choices=MEASURE_TYPE_CHOICES, label="Tipo de Medida")
+    measure_type = forms.ChoiceField(choices=mtc, label="Tipo de Medida")
 
     class Meta:
         model = Ingredient
@@ -17,13 +12,7 @@ class IngredientForm(forms.ModelForm):
 
 
 class RecipeForm(forms.ModelForm):
-    MEASURE_TYPE_CHOICES = [
-        ("g", "gramas"),
-        ("ml", "mililitros"),
-        ("un", "unidades"),
-    ]
-
-    measure_type = forms.ChoiceField(choices=MEASURE_TYPE_CHOICES, label="Tipo de Medida")
+    measure_type = forms.ChoiceField(choices=mtc, label="Tipo de Medida")
     
     class Meta:
         model = Recipe
