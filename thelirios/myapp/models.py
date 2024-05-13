@@ -51,3 +51,22 @@ class ProductRecipe(models.Model):
 
     def __str__(self):
         return f"{self.recipe.name} - {self.product.name} - {self.quantity}"
+    
+
+class IngredientInventory(models.Model):  
+    name = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    total_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    expiration_date = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name.name
+    
+    def cost_per_unit(self):
+        if self.quantity > 0:
+            cost_per_unity = self.total_cost / self.quantity
+            return cost_per_unity
+        else:
+            return 0
