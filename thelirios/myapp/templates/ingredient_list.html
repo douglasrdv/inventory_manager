@@ -17,13 +17,23 @@
         {% for ingredient in ingredients %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text">
-                <p>{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.brand }}</p>
+                <div class="halfh">
+                    <div class="list-name"><p>{{ ingredient.name }}</p></div>
+                </div>
+                <div class="list-details halfh">
+                    <div class="list-info"><i class="glyphicon glyphicon-scale small-icon"></i><p>{{ ingredient.weight }} {{ ingredient.measure_type }}</p></div>
+                    <div class="list-info"><i class="glyphicon glyphicon-registration-mark small-icon"></i><p>{{ ingredient.brand }}</p></div>
+                </div>
+
             </div>
-            <div class="icon-container">
-                <a href="{%url 'ingredient-delete' ingredient.id%}"><i class="glyphicon glyphicon-remove list-icon"></i></a>
-            </div>
-            <div class="icon-container">
-                <a href="{%url 'ingredient-update' ingredient.id%}"><i class="glyphicon glyphicon-pencil list-icon"></i></a>
+            
+            <div class="row-icons">
+                <div class="icon-container">
+                    <a href="{%url 'ingredient-update' ingredient.id%}"><i class="glyphicon glyphicon-pencil list-icon xx-large"></i></a>
+                </div>
+                <div class="icon-container">
+                    <a href="{%url 'ingredient-delete' ingredient.id%}"><i class="glyphicon glyphicon-remove list-icon xx-large"></i></a>
+                </div>
             </div>
 
         </div>   
