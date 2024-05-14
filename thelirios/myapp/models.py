@@ -63,6 +63,16 @@ class IngredientInventory(models.Model):
     def __str__(self):
         return self.ingredient.name
     
+
+class IngredientToInventory(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    total_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    expiration_date = models.DateField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
     def cost_per_unit(self):
         if self.quantity > 0:
             cost_per_unity = self.total_cost / self.quantity
@@ -71,15 +81,8 @@ class IngredientInventory(models.Model):
             return 0
         
 
-class IngredientToInventory(models.Model):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
-    quantity = models.IntegerField(blank=False, null=False)
-    total_cost = models.DecimalField(max_digits=6, decimal_places=2)
-    expiration_date = models.DateField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
     def add_ingredients(self):
-        inventory_item = IngredientInventory.objects.filter(ingredient=self.ingredient).last()
+        inventory_item = IngredientInventory.objects.filter(ingredient=self.ingredient).first()
 
         if not inventory_item:
             inventory_item = IngredientInventory.objects.create(
