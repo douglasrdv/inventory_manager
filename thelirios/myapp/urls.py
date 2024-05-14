@@ -4,10 +4,11 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     # Ingredients urls
-    path("new-ingredient", views.ingredient_registration, name="new-ingredient"),
-    path("ingredients-list", views.list_all_ingredients, name="ingredients-list"),
-    path("ingredient-delete/<int:id>", views.ingredient_delete, name="ingredient-delete"),
-    path("ingredient-update/<int:id>", views.ingredient_update, name="ingredient-update"),
+    path("new-ingredient/", views.ingredient_registration, name="new-ingredient"),
+    path("ingredients-list/", views.list_all_ingredients, name="ingredients-list"),
+    path("ingredient-delete/<int:id>/", views.ingredient_delete, name="ingredient-delete"),
+    path("ingredient-update/<int:id>/", views.ingredient_update, name="ingredient-update"),
+    path("inventory/add-ingredients", views.add_ingredients, name="add-ingredients"),
     # Recipes urls
     path("new-recipe", views.recipe_registration, name="new-recipe"),
     path("recipes-list", views.recipes_list, name="recipes-list"),

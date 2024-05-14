@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
-from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe
-from .forms import IngredientForm, RecipeForm, ProductForm
+from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory
+from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm
 
 
 
@@ -182,3 +182,19 @@ def product_details(request, product_id):
     formset = ProductFormset(instance=product)
 
     return render(request, 'product_details.html', {'formset' : formset, 'product_name': product.name})
+
+
+def add_ingredients(request):
+
+    if request.method == 'POST':
+
+        form = IngredientToInventoryForm(request.POST)
+        if form.is_valid():
+            new_inventory_item = form.save()
+            new_inventory_item.add_ingredient()
+            return redirect('add_ingredient_to_inventory.html')
+
+    else:
+        form = IngredientToInventoryForm()
+
+    return render(request, 'add_ingredient_to_inventory.html', {'form': form})
