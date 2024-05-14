@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 from .common.helper import MEASURE_TYPE_CHOICES as mtc
 
 
@@ -54,15 +54,14 @@ class ProductRecipe(models.Model):
     
 
 class IngredientInventory(models.Model):  
-    name = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
-    quantity = models.IntegerField(blank=False, null=False)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
+    total_quantity = models.IntegerField(blank=False, null=False)
     total_cost = models.DecimalField(max_digits=6, decimal_places=2)
-    expiration_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name.name
+        return self.ingredient.name
     
     def cost_per_unit(self):
         if self.quantity > 0:
@@ -70,3 +69,37 @@ class IngredientInventory(models.Model):
             return cost_per_unity
         else:
             return 0
+        
+
+class IngredientToInventory(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    total_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    expiration_date = models.DateField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def add_ingredients(self):
+        inventory_item = IngredientInventory.objects.filter(ingredient=self.ingredient).last()
+
+        if not inventory_item:
+            inventory_item = IngredientInventory.objects.create(
+                ingredient=self.ingredient,
+                total_quantity=0,
+                total_cost=0,
+            )
+
+        with transaction.atomic():
+            inventory_item.total_quantity += self.quantity
+            inventory_item.total_cost += self.total_cost
+            inventory_item.save()
+
+
+class RecipeInventory(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    amount_yield = models.FloatField(blank=False, null=False)
+    expiration_date = models.DateField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.recipe.name
