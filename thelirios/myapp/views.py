@@ -184,14 +184,14 @@ def product_details(request, product_id):
     return render(request, 'product_details.html', {'formset' : formset, 'product_name': product.name})
 
 
-def add_ingredients(request):
+def add_ingredients_to_inventory(request):
 
     if request.method == 'POST':
 
         form = IngredientToInventoryForm(request.POST)
         if form.is_valid():
             new_inventory_item = form.save()
-            new_inventory_item.add_ingredient()
+            new_inventory_item.add_ingredients_to_inventory()
             return redirect('add_ingredient_to_inventory.html')
 
     else:

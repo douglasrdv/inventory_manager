@@ -8,7 +8,7 @@ urlpatterns = [
     path("ingredients-list/", views.list_all_ingredients, name="ingredients-list"),
     path("ingredient-delete/<int:id>/", views.ingredient_delete, name="ingredient-delete"),
     path("ingredient-update/<int:id>/", views.ingredient_update, name="ingredient-update"),
-    path("inventory/add-ingredients", views.add_ingredients, name="add-ingredients"),
+    path("inventory/add-ingredients", views.add_ingredients_to_inventory, name="add-ingredients"),
     # Recipes urls
     path("new-recipe", views.recipe_registration, name="new-recipe"),
     path("recipes-list", views.recipes_list, name="recipes-list"),
