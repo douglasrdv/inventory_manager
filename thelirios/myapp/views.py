@@ -183,6 +183,9 @@ def product_details(request, product_id):
 
     return render(request, 'product_details.html', {'formset' : formset, 'product_name': product.name})
 
+def ingredient_inventory_list(request):
+    ingredients = IngredientToInventory.objects.all()
+    return render(request, 'ingredient_inventory.html', {'ingredients': ingredients})
 
 def add_ingredients_to_inventory(request):
 
@@ -192,9 +195,9 @@ def add_ingredients_to_inventory(request):
         if form.is_valid():
             new_ingredient_to_inventory = form.save()
             new_ingredient_to_inventory.add_ingredients_to_inventory()
-            return redirect('ingredient_inventory.html')
+            return redirect('add_ingredient_to_inventory.html')
 
     else:
         form = IngredientToInventoryForm()
 
-    return render(request, 'ingredient_inventory.html', {'form': form})
+    return render(request, 'add_ingredient_to_inventory.html', {'form': form})

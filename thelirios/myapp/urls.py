@@ -8,6 +8,7 @@ urlpatterns = [
     path("ingredients-list/", views.list_all_ingredients, name="ingredients-list"),
     path("ingredient-delete/<int:id>/", views.ingredient_delete, name="ingredient-delete"),
     path("ingredient-update/<int:id>/", views.ingredient_update, name="ingredient-update"),
+    path("inventory/ingredients-list/", views.ingredient_inventory_list, name="inventory-ingredients-list"),
     path("inventory/add-ingredients", views.add_ingredients_to_inventory, name="add-ingredients"),
     # Recipes urls
     path("new-recipe", views.recipe_registration, name="new-recipe"),
