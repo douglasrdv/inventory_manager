@@ -81,7 +81,7 @@ class IngredientToInventory(models.Model):
             return 0
         
 
-    def add_ingredients(self):
+    def add_ingredients_to_inventory(self):
         inventory_item = IngredientInventory.objects.filter(ingredient=self.ingredient).first()
 
         if not inventory_item:

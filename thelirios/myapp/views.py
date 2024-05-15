@@ -192,9 +192,9 @@ def add_ingredients_to_inventory(request):
         if form.is_valid():
             new_ingredient_to_inventory = form.save()
             new_ingredient_to_inventory.add_ingredients_to_inventory()
-            return redirect('add_ingredient_to_inventory.html')
+            return redirect('ingredient_inventory.html')
 
     else:
         form = IngredientToInventoryForm()
 
-    return render(request, 'add_ingredient_to_inventory.html', {'form': form})
+    return render(request, 'ingredient_inventory.html', {'form': form})

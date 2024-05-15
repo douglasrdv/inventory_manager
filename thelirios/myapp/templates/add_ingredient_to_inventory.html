@@ -10,6 +10,14 @@
 </head>
 <body>
     {% include 'header.html' %}
-    
+    <div class="form-cont">
+        <div class="registration-form">
+            <form action="/inventory/add-ingredients" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
