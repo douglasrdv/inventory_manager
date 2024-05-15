@@ -190,8 +190,8 @@ def add_ingredients_to_inventory(request):
 
         form = IngredientToInventoryForm(request.POST)
         if form.is_valid():
-            new_inventory_item = form.save()
-            new_inventory_item.add_ingredients_to_inventory()
+            new_ingredient_to_inventory = form.save()
+            new_ingredient_to_inventory.add_ingredients_to_inventory()
             return redirect('add_ingredient_to_inventory.html')
 
     else:
