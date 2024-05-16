@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="../../static/style.css">
 
 
-    <title>Estoque de Ingredientes</title>
+    <title>Histórico de Ingrediente</title>
 </head>
 <body>
     {% include 'header.html' %}
     <div class="list-cont">
-    <p class="title">Lista de Ingredientes!</p>
+    <p class="title">Histórico de Ingredientes ao Estoque</p>
 
         {% for ingredient in ingredients %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text">
-                <p>{{ ingredient.id }} - {{ ingredient.name }} - {{ ingredient.weight }} - {{ ingredient.brand }}</p>
+                <p>{{ ingredient.id }} - {{ ingredient.ingredient.name }}</p>
             </div>
         </div>   
         {% endfor %}
