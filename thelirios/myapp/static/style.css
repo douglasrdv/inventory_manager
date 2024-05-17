@@ -64,6 +64,21 @@
     background-color: white;
 }
 
+.form-cont select{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 30px;
+    border-color: #5e5964;
+    border-radius: 100px;
+    border-style: solid;
+    padding: 5px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: #5e5964;
+    background-color: white;
+}
+
 .form-cont .helptext{
     position: absolute;
     right: 5%;
@@ -137,6 +152,7 @@
 
 .list-text {
     display: flex;
+    flex-direction: column;
     width: 80%;
     height: 100%;
     float: left;
@@ -149,9 +165,10 @@
 }
 
 .row{
-    display: inline-box;
+    display: flex;
     margin: 0;
-    height: 50px;
+    padding: 10px 30px 10px 30px;
+    height: 70px;
 }
 
 .row1{
@@ -162,11 +179,15 @@
     background-color: white;
 }
 
+.row-icons{
+    display: flex;
+    margin-left: auto;
+    height: 100%;
+}
+
 .icon-container{
     display: flex;
     height: 100%;
-    width: 8%;
-    float: right;
 }
 
 .icon-container a{
@@ -186,6 +207,16 @@
     color: rgb(86, 87, 112);
 }
 
+.small-icon{
+    line-height: normal;
+    color: rgb(86, 87, 112);
+    font-size: 12pt;
+}
+
+.xx-large{
+    font-size: 24pt;
+}
+
 .plus{
     float: none;
     margin: auto;
@@ -202,7 +233,7 @@
 }
 
 .form-ingredient{
-    width: 30%;
+    width: 100%;
 }
 
 .form-ingredient select{
@@ -218,8 +249,10 @@
 }
 
 .form-quantity{
-    width: 20%;
-    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 }
 
 .form-quantity input{
@@ -233,8 +266,6 @@
 }
 
 .form-delete{
-
-    margin-left: 20%;
     text-align: center;
     font-weight: 600;
     text-decoration: none;
@@ -250,4 +281,67 @@
     border-style: none;
     text-decoration: none;
     background-color: transparent;
+}
+
+.list-name{
+    display: flex;
+    flex-direction: row;
+    font-weight: 800;
+    font-size: large;
+    align-items: center;
+}
+
+.list-name p{
+    margin: 0;
+}
+
+.list-info{
+    display: flex;
+    height: 100%;
+    width: 25%;
+    align-items: center;
+}
+
+.list-info p{
+    line-height: 30px;
+}
+
+.halfh{
+    display: flex;
+    align-items: center;
+    height: 50%;
+}
+
+.list-details{
+    display: flex;
+    flex-direction: row;
+}
+
+.list-btn{
+    font-weight: 600;
+    color: #5e5964;
+    background-color: transparent;
+    margin: 5px;
+    border: none;
+
+}
+
+.list-btn:hover{
+    color: #3a383d;
+    text-decoration: none;
+}
+
+.list-btn:active{
+    color: #5e5964;
+
+}
+
+.centerh{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-third{
+    width: calc(100% / 3);
 }

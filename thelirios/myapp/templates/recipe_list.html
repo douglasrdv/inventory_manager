@@ -18,22 +18,32 @@
         {% for recipe in recipes %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text">
-                <p>{{ recipe.id }} - {{ recipe.name }}</p>
+                <div class="list-name"><p>{{ recipe.name }}</p></div>
+                <div class="list-details halfh">
+                    <div class="list-info"><i class="glyphicon glyphicon-time small-icon"></i><p>{{ recipe.cooking_time }} min</p></div>
+                </div>
             </div>
-            <div class="icon-container">
-                <a href="{%url 'recipe-delete' recipe.id%}"><i class="glyphicon glyphicon-remove list-icon"></i></a>
+            
+            <div class="row-icons">
+                <div class="icon-container">
+                    <a href="{%url 'recipe-details' recipe.id%}"><i class="glyphicon glyphicon-list list-icon xx-large"></i></a>
+                </div>
+                <div class="icon-container">
+                    <a href="{%url 'recipe-update' recipe.id%}"><i class="glyphicon glyphicon-pencil list-icon xx-large"></i></a>
+                </div>
+                <div class="icon-container">
+                    <a href="{%url 'recipe-delete' recipe.id%}"><i class="glyphicon glyphicon-remove list-icon xx-large"></i></a>
+                </div>
             </div>
-            <div class="icon-container">
-                <a href="{%url 'recipe-details' recipe.id%}"><i class="glyphicon glyphicon-pencil list-icon"></i></a>
-            </div>        
+        </div>   
 
-    </div>
     {% endfor %}
     <div class="{% if recipes|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
         <div class="icon-container plus">
             <a href="{%url 'new-recipe'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
         </div>
     </div>
+</div>
 
 </body>
 </html>
