@@ -183,9 +183,11 @@ def product_details(request, product_id):
 
     return render(request, 'product_details.html', {'formset' : formset, 'product_name': product.name})
 
+
 def ingredient_inventory_list(request):
     ingredients = IngredientToInventory.objects.all()
     return render(request, 'ingredient_inventory.html', {'ingredients': ingredients})
+
 
 def add_ingredients_to_inventory(request):
 
