@@ -200,4 +200,4 @@ def add_ingredients_to_inventory(request):
     else:
         form = IngredientToInventoryForm()
 
-    return render(request, 'inventory-ingredients-list', {'form': form})
+    return render(request, 'add_ingredient_to_inventory.html', {'form': form})

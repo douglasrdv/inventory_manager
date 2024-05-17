@@ -42,3 +42,6 @@ class IngredientToInventoryForm(forms.ModelForm):
             'total_cost',
             'expiration_date'
         ]
+        widgets = {
+            'expiration_date': forms.DateInput(attrs={'type': 'date'})
+        }
