@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
-from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory
-from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm
+from datetime import date, timedelta
+from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory, RecipeToInventory
+from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm, RecipeToInventoryForm
 
 
 
@@ -203,3 +204,20 @@ def add_ingredients_to_inventory(request):
         form = IngredientToInventoryForm()
 
     return render(request, 'add_ingredient_to_inventory.html', {'form': form})
+
+
+def add_recipes_to_inventory(request):
+
+    if request.method == 'POST':
+
+        form = RecipeToInventoryForm(request.POST)
+        if form.is_valid():
+            new_recipe_to_inventory = form.save(commit=False)
+            new_recipe_to_inventory.expiration_date = date.today() + timedelta(days=new_recipe_to_inventory.recipe.expiration_days)
+            new_recipe_to_inventory.add_recipes_to_inventory()
+            return redirect('inventory-recipe-list')
+
+    else:
+        form = RecipeToInventoryForm()
+
+    return render(request, 'add_recipe_to_inventory.html', {'form': form})

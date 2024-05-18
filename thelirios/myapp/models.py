@@ -2,9 +2,10 @@ from django.db import models, transaction
 from .common.helper import MEASURE_TYPE_CHOICES as mtc
 
 
-class Recipe(models.Model):  
+class Recipe(models.Model):
     name = models.CharField(max_length=60, null=False)
     ingredients = models.ManyToManyField('Ingredient', through='RecipeIngredient')
+    expiration_days = models.IntegerField(blank=False, null=False)
     cooking_time = models.IntegerField(help_text="minutes")
     measure_type = models.CharField(max_length=2, choices=mtc, blank=False, null=False)
     description = models.TextField(max_length=300, blank=True, null=True)
@@ -99,10 +100,32 @@ class IngredientToInventory(models.Model):
 
 class RecipeInventory(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
-    quantity = models.IntegerField(blank=False, null=False)
-    amount_yield = models.FloatField(blank=False, null=False)
-    expiration_date = models.DateField(blank=True, null=True)
+    total_quantity = models.IntegerField(blank=False, null=False)
+    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.recipe.name
+    
+
+class RecipeToInventory(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    amount_yield = models.FloatField(blank=False, null=False)
+    expiration_date = models.DateField(blank=True, null=True)
+
+    
+    def add_recipes_to_inventory(self):
+        inventory_recipe = RecipeInventory.objects.filter(recipe=self.recipe).first()
+
+        if not inventory_recipe:
+            inventory_recipe = RecipeInventory.objects.create(
+                recipe=self.recipe,
+                total_quantity=0,
+                expiration_date=0,
+            )
+
+        with transaction.atomic():
+            inventory_recipe.total_quantity += self.quantity
+            inventory_recipe.total_cost += self.total_cost
+            inventory_recipe.save()

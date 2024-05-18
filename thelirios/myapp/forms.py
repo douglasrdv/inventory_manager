@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ingredient, Recipe, Product, IngredientToInventory
+from .models import Ingredient, Recipe, Product, IngredientToInventory, RecipeToInventory
 from .common.helper import MEASURE_TYPE_CHOICES as mtc
 
 
@@ -18,6 +18,7 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = [
             "name",
+            "expiration_days",
             "cooking_time",
             "measure_type",
         ]
@@ -40,6 +41,21 @@ class IngredientToInventoryForm(forms.ModelForm):
             'ingredient',
             'quantity',
             'total_cost',
+            'expiration_date'
+        ]
+        widgets = {
+            'expiration_date': forms.DateInput(attrs={'type': 'date'})
+        }
+
+
+
+class RecipeToInventoryForm(forms.ModelForm):
+    class Meta:
+        model = RecipeToInventory
+        fields = [
+            'recipe',
+            'quantity',
+            'amount_yield',
             'expiration_date'
         ]
         widgets = {
