@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="../../static/style.css">
 
 
-    <title>Histórico de Ingrediente</title>
+    <title>Histórico de Receita</title>
 </head>
 <body>
     {% include 'header.html' %}
     <div class="list-cont">
-    <p class="title">Histórico de Ingredientes do Estoque</p>
+    <p class="title">Histórico de Receitas do Estoque</p>
 
-        {% for ingredient in ingredients %}
+        {% for recipe in recipes %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text">
-                <p>{{ ingredient.id }} - {{ ingredient.ingredient.name }}</p>
+                <p>{{ recipe.id }} - {{ recipe.recipe.name }} - {{ recipe.quantity }} - {{ recipe.amount_yield }} - {{ recipe.expiration_date }}</p>
             </div>
         </div>   
         {% endfor %}
-        <div class="{% if ingredients|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
+        <div class="{% if recipes|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
             <div class="icon-container plus">
-                <a href="{%url 'add-ingredients'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
+                <a href="{%url 'add-recipes'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
             </div>
         </div>
 

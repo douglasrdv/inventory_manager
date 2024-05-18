@@ -187,12 +187,12 @@ def product_details(request, product_id):
 
 def ingredient_inventory_list(request):
     ingredients = IngredientToInventory.objects.all()
-    return render(request, 'ingredient_inventory.html', {'ingredients': ingredients})
+    return render(request, 'ingredient_inventory_history.html', {'ingredients': ingredients})
 
 
 def recipe_inventory_list(request):
     recipes = RecipeToInventory.objects.all()
-    return render(request, 'recipe_inventory.html', {'recipes': recipes})
+    return render(request, 'recipe_inventory_history.html', {'recipes': recipes})
 
 
 def add_ingredients_to_inventory(request):
