@@ -18,7 +18,7 @@
         {% for recipe in recipes %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text">
-                <p>{{ recipe.id }} - {{ recipe.name }}</p>
+                <p>{{ recipe.id }} - {{ recipe.recipe.name }}</p>
             </div>
         </div>   
         {% endfor %}
