@@ -219,6 +219,7 @@ def add_recipes_to_inventory(request):
         if form.is_valid():
             new_recipe_to_inventory = form.save(commit=False)
             new_recipe_to_inventory.expiration_date = date.today() + timedelta(days=new_recipe_to_inventory.recipe.expiration_days)
+            new_recipe_to_inventory.save()
             new_recipe_to_inventory.add_recipes_to_inventory()
             return redirect('inventory-recipes-list')
 
