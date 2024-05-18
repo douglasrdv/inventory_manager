@@ -100,8 +100,8 @@ class IngredientToInventory(models.Model):
 
 class RecipeInventory(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
-    total_quantity = models.IntegerField(blank=False, null=False)
-    
+    total_amount = models.IntegerField(blank=False, null=False)
+    expiration_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -121,11 +121,10 @@ class RecipeToInventory(models.Model):
         if not inventory_recipe:
             inventory_recipe = RecipeInventory.objects.create(
                 recipe=self.recipe,
-                total_quantity=0,
-                expiration_date=0,
+                total_amount=0,
+                expiration_date=self.expiration_date,
             )
 
         with transaction.atomic():
-            inventory_recipe.total_quantity += self.quantity
-            inventory_recipe.total_cost += self.total_cost
+            inventory_recipe.total_amount += self.amount_yield
             inventory_recipe.save()

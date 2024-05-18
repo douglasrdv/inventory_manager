@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/style.css">
+
+
+    <title>Histórico de Receita</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="list-cont">
+    <p class="title">Histórico de Receitas do Estoque</p>
+
+        {% for recipe in recipes %}
+        <div class="{% cycle 'row1' 'row2' %} row">
+            <div class="list-text">
+                <p>{{ recipe.id }} - {{ recipe.name }}</p>
+            </div>
+        </div>   
+        {% endfor %}
+        <div class="{% if recipes|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
+            <div class="icon-container plus">
+                <a href="{%url 'add-recipes'%}"><i class="glyphicon glyphicon-plus list-icon"></i></a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -190,6 +190,11 @@ def ingredient_inventory_list(request):
     return render(request, 'ingredient_inventory.html', {'ingredients': ingredients})
 
 
+def recipe_inventory_list(request):
+    recipes = RecipeToInventory.objects.all()
+    return render(request, 'recipe_inventory.html', {'recipes': recipes})
+
+
 def add_ingredients_to_inventory(request):
 
     if request.method == 'POST':
@@ -215,7 +220,7 @@ def add_recipes_to_inventory(request):
             new_recipe_to_inventory = form.save(commit=False)
             new_recipe_to_inventory.expiration_date = date.today() + timedelta(days=new_recipe_to_inventory.recipe.expiration_days)
             new_recipe_to_inventory.add_recipes_to_inventory()
-            return redirect('inventory-recipe-list')
+            return redirect('inventory-recipes-list')
 
     else:
         form = RecipeToInventoryForm()

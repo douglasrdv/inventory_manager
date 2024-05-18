@@ -56,8 +56,4 @@ class RecipeToInventoryForm(forms.ModelForm):
             'recipe',
             'quantity',
             'amount_yield',
-            'expiration_date'
         ]
-        widgets = {
-            'expiration_date': forms.DateInput(attrs={'type': 'date'})
-        }
