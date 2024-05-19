@@ -12,15 +12,28 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <div class="form-cont">
-        <div class="registration-form">
+    <div class="list-cont">
             <form method="POST">
                 {% csrf_token %}
                 <p class="title">
-                    Receita {{ product_name }}: 
+                    Produto {{ product_name }}: 
                 </p>
-                {{ formset }}
-                <button type="submit">Save</button>
+                {{ formset.management_form }}
+
+                {% for form in formset %}
+                    <div class="{% cycle 'row1' 'row2' %} row flex-row">
+                        {{ form.id }}
+                        <div class="flex-third"><div class="form-ingredient">{{ form.recipe }}</div></div>
+                        <div class="flex-third"><div class="form-quantity">{{ form.quantity }}</div></div>
+                        <div class="flex-third"><div class="form-delete">Remover {{ form.DELETE }}</div></div>
+                    </div>   
+                {% endfor %}
+                <div class="{% if formset|length|divisibleby:2 %}row1{% else %}row2{% endif %} row centerh">
+                    <div class="helfh center">
+                        <button class="list-btn" type="submit">Salvar</button>
+                        <a class="list-btn" href="{% url 'products-list' %}">Voltar</a>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

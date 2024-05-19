@@ -22,11 +22,14 @@
                 </div>
 
                 <div class="list-details halfh">
-                    <div class="list-info"><p>R$ {{ product.price }}</p></div>
+                    <div class="list-info"><p class="no-margin">R$ {{ product.price }}</p></div>
                 </div>
             </div>
             
             <div class="row-icons">
+                <div class="icon-container">
+                    <a href="{%url 'product-details' product.id%}"><i class="glyphicon glyphicon-list list-icon xx-large"></i></a>
+                </div>
                 <div class="icon-container">
                     <a href="{%url 'product-update' product.id%}"><i class="glyphicon glyphicon-pencil list-icon xx-large"></i></a>
                 </div>

@@ -11,6 +11,34 @@
     background-color: antiquewhite;
 }
 
+.nav-btn{
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    margin: 5px;
+    border: none;
+}
+
+.nav-btn:visited{
+    font-weight: 600;
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    margin: 5px;
+    border: none;
+}
+
+.nav-btn:hover{
+    color: #5e5964;
+    text-decoration: none;
+}
+
+.nav-btn:active{
+    color: white;
+    text-decoration: none;
+}
+
 .center{
     margin: auto;
 }
@@ -21,6 +49,7 @@
     border-radius: 20px;
     margin: auto;
     margin-top: 30px;
+    padding: 20px;
     box-shadow: 2px 2px 5px #5e5964;
 }
 
@@ -159,9 +188,8 @@
 }
 
 .list-text p{
-    margin: auto 0 auto 10px ;
+    margin: auto 0 auto 0;
     color: rgb(86, 87, 112);
-
 }
 
 .row{
@@ -211,6 +239,14 @@
     line-height: normal;
     color: rgb(86, 87, 112);
     font-size: 12pt;
+    margin-right: 10px;
+}
+
+.medium-icon{
+    color: rgb(86, 87, 112);
+    top: -2px;
+    font-size: 14pt;
+    margin-right: 10px;
 }
 
 .xx-large{
@@ -289,6 +325,7 @@
     font-weight: 800;
     font-size: large;
     align-items: center;
+
 }
 
 .list-name p{
@@ -299,6 +336,7 @@
     display: flex;
     height: 100%;
     width: 25%;
+    margin-right: 20px;
     align-items: center;
 }
 
@@ -342,6 +380,18 @@
     align-items: center;
 }
 
+.flex-full{
+    width: 100%;
+}
+
 .flex-third{
     width: calc(100% / 3);
+}
+
+.end{
+    margin-left: auto;
+}
+
+.no-margin{
+    margin: 0;
 }

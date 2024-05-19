@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from datetime import date, timedelta
-from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory, RecipeToInventory
+from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory, RecipeToInventory, ProductToInventory
 from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm, RecipeToInventoryForm
 
 
@@ -94,20 +94,12 @@ def recipe_details(request, recipe_id):
 
     if request.method == 'POST':
         formset = IngredientFormset(request.POST, instance=recipe)
-        for form in formset:
-            if not form.is_valid():
-                print('form not valid')
-                print(form)
 
         if formset.is_valid():
 
             formset.save()
-            print(recipe.id)
 
             return HttpResponseRedirect('%i' %recipe.id)
-        else:
-            print('failed to validate')
-
 
     formset = IngredientFormset(instance=recipe)
 
@@ -178,7 +170,7 @@ def product_details(request, product_id):
         if formset.is_valid():
             formset.save()
 
-            return redirect('products-list')
+            return HttpResponseRedirect('%i' %product.id)
 
     formset = ProductFormset(instance=product)
 
@@ -193,6 +185,10 @@ def ingredient_inventory_list(request):
 def recipe_inventory_list(request):
     recipes = RecipeToInventory.objects.all()
     return render(request, 'recipe_inventory_history.html', {'recipes': recipes})
+
+def product_inventory_list(request):
+    products = ProductToInventory.objects.all()
+    return render(request, 'product_inventory_history.html', {'products': products})
 
 
 def add_ingredients_to_inventory(request):
@@ -227,3 +223,6 @@ def add_recipes_to_inventory(request):
         form = RecipeToInventoryForm()
 
     return render(request, 'add_recipe_to_inventory.html', {'form': form})
+
+def add_products_to_inventory(request):
+    pass

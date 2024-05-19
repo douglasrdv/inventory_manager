@@ -128,3 +128,10 @@ class RecipeToInventory(models.Model):
         with transaction.atomic():
             inventory_recipe.total_amount += self.amount_yield
             inventory_recipe.save()
+
+class ProductInventory(models.Model):
+    pass
+
+class ProductToInventory(models.Model):
+    pass
+

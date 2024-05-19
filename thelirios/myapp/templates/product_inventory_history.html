@@ -15,16 +15,16 @@
     <div class="list-cont">
     <p class="title">Histórico de Ingredientes do Estoque</p>
 
-        {% for ingredient in ingredients %}
+        {% for product in products %}
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text flex-full">
                 <div class="halfh">
-                    <div class="list-name"><p>{{ ingredient.quantity }} X {{ ingredient.ingredient.name }}</p></div>
-                    <div class="list-name end"><p>R$ {{ ingredient.total_cost }}</p></div>
+                    <div class="list-name"><p>{{ product.quantity }} X {{ product.product.name }}</p></div>
+                    <div class="list-name end"><p>R$ {{ product.total_cost }}</p></div>
                 </div>
                 <div class="list-details halfh">
-                    <div class="list-info"><i class="glyphicon glyphicon-calendar small-icon"></i><p>{{ ingredient.created_at }}</p></div>
-                    <div class="list-info"><i class="glyphicon glyphicon-alert small-icon"></i><p>{{ ingredient.expiration_date }}</p></div>
+                    <div class="list-info"><i class="glyphicon glyphicon-calendar small-icon"></i><p>{{ product.created_at }}</p></div>
+                    <div class="list-info"><i class="glyphicon glyphicon-alert small-icon"></i><p>{{ product.expiration_date }}</p></div>
                 </div>
             </div>
         </div>

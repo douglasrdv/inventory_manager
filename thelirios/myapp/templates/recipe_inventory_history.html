@@ -17,10 +17,18 @@
 
         {% for recipe in recipes %}
         <div class="{% cycle 'row1' 'row2' %} row">
-            <div class="list-text">
-                <p>{{ recipe.id }} - {{ recipe.recipe.name }} - {{ recipe.quantity }} - {{ recipe.amount_yield }} - {{ recipe.expiration_date }}</p>
+            <div class="list-text flex-full">
+                <div class="halfh">
+                    <div class="list-name"><p>{{ recipe.quantity }} X {{ recipe.recipe.name }}</p></div>
+                    <div class="list-name end"><div class="glyphicon glyphicon-scale medium-icon"></div><p>{{ recipe.amount_yield }} {{ recipe.recipe.measure_type }}</p></div>
+                </div>
+                <div class="list-details halfh">
+                    <div class="list-info"><i class="glyphicon glyphicon-calendar small-icon"></i><p>{{ recipe.created_at }}</p></div>
+                    <div class="list-info"><i class="glyphicon glyphicon-alert small-icon"></i><p>{{ recipe.expiration_date }}</p></div>
+                </div>
             </div>
-        </div>   
+        </div>
+
         {% endfor %}
         <div class="{% if recipes|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
             <div class="icon-container plus">
