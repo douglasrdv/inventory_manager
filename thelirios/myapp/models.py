@@ -113,6 +113,7 @@ class RecipeToInventory(models.Model):
     quantity = models.IntegerField(blank=False, null=False)
     amount_yield = models.FloatField(blank=False, null=False)
     expiration_date = models.DateField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     
     def add_recipes_to_inventory(self):
