@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ingredient, Recipe, Product, IngredientToInventory, RecipeToInventory
+from .models import Ingredient, Recipe, Product, IngredientToInventory, RecipeToInventory, ProductToInventory
 from .common.helper import MEASURE_TYPE_CHOICES as mtc
 
 
@@ -56,4 +56,13 @@ class RecipeToInventoryForm(forms.ModelForm):
             'recipe',
             'quantity',
             'amount_yield',
+        ]
+
+
+class ProdutToInventoryForm(forms.ModelForm):
+    class Meta:
+        model = ProductToInventory
+        fields = [
+            'product',
+            'quantity',
         ]
