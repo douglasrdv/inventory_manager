@@ -181,7 +181,6 @@ def ingredient_inventory_list(request):
     ingredients = IngredientToInventory.objects.all()
     return render(request, 'ingredient_inventory_history.html', {'ingredients': ingredients})
 
-
 def recipe_inventory_list(request):
     recipes = RecipeToInventory.objects.all()
     return render(request, 'recipe_inventory_history.html', {'recipes': recipes})
@@ -226,3 +225,15 @@ def add_recipes_to_inventory(request):
 
 def add_products_to_inventory(request):
     pass
+
+def ingredient_stock(request):
+    ingredients = IngredientToInventory.objects.all()
+    return render(request, 'ingredient_inventory_stock.html', {'ingredients': ingredients})
+
+def recipe_stock(request):
+    recipes = IngredientToInventory.objects.all()
+    return render(request, 'recipe_inventory_stock.html', {'recipes': recipes})
+
+def product_stock(request):
+    products = IngredientToInventory.objects.all()
+    return render(request, 'product_inventory_stock.html', {'products': products})
