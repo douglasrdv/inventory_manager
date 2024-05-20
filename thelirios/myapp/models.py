@@ -148,4 +148,17 @@ class ProductToInventory(models.Model):
     total_price = models.DecimalField(max_digits=6, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    def add_product_to_inventory(self):
+        inventory_product = ProductInventory.objects.filter(product=self.product).first()
+
+        if not inventory_product:
+            inventory_product = ProductInventory.objects.create(
+                product=self.product,
+                total_amount=0,
+                expiration_date=self.expiration_date,
+            )
+
+        with transaction.atomic():
+            inventory_product.total_amount += self.amount_yield
+            inventory_product.save()
     

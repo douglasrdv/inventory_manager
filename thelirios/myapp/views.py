@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from datetime import date, timedelta
-from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory, RecipeToInventory, ProductToInventory
-from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm, RecipeToInventoryForm
+from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory, RecipeToInventory, ProductToInventory, RecipeInventory, IngredientInventory, ProductInventory
+from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm, RecipeToInventoryForm, ProductToInventoryForm
 
 
 
@@ -224,16 +224,30 @@ def add_recipes_to_inventory(request):
     return render(request, 'add_recipe_to_inventory.html', {'form': form})
 
 def add_products_to_inventory(request):
-    pass
+
+    if request.method == 'POST':
+
+        form = ProductToInventoryForm(request.POST)
+        if form.is_valid():
+            new_product_to_inventory = form.save(commit=False)
+            new_product_to_inventory.expiration_date = date.today() + timedelta(days=new_product_to_inventory.product.expiration_days)
+            new_product_to_inventory.save()
+            new_product_to_inventory.add_products_to_inventory()
+            return redirect('inventory-products-list')
+
+    else:
+        form = ProductToInventoryForm()
+
+    return render(request, 'add_recipe_to_inventory.html', {'form': form})
 
 def ingredient_stock(request):
-    ingredients = IngredientToInventory.objects.all()
+    ingredients = IngredientInventory.objects.all()
     return render(request, 'ingredient_inventory_stock.html', {'ingredients': ingredients})
 
 def recipe_stock(request):
-    recipes = IngredientToInventory.objects.all()
+    recipes = RecipeInventory.objects.all()
     return render(request, 'recipe_inventory_stock.html', {'recipes': recipes})
 
 def product_stock(request):
-    products = IngredientToInventory.objects.all()
+    products = ProductInventory.objects.all()
     return render(request, 'product_inventory_stock.html', {'products': products})

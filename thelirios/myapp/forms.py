@@ -59,12 +59,11 @@ class RecipeToInventoryForm(forms.ModelForm):
         ]
 
 
-'''
-class ProdutToInventoryForm(forms.ModelForm):
+class ProductToInventoryForm(forms.ModelForm):
     class Meta:
         model = ProductToInventory
         fields = [
             'product',
             'quantity',
+            'total_price',
         ]
-'''
