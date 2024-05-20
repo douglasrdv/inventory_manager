@@ -62,6 +62,9 @@ class IngredientInventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = "IngredientInventories"
+
     def __str__(self):
         return self.ingredient.name
     
@@ -74,6 +77,8 @@ class IngredientToInventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = "IngredientToInventories"
 
     def cost_per_unit(self):
         if self.quantity > 0:
@@ -107,6 +112,9 @@ class RecipeInventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = "RecipeInventories"
+
     def __str__(self):
         return self.recipe.name
     
@@ -118,6 +126,8 @@ class RecipeToInventory(models.Model):
     expiration_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = "RecipeToInventories"
     
     def add_recipes_to_inventory(self):
         inventory_recipe = RecipeInventory.objects.filter(recipe=self.recipe).first()
@@ -143,6 +153,9 @@ class ProductInventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = "ProductInventories"
+
 
 class ProductToInventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)
@@ -150,6 +163,9 @@ class ProductToInventory(models.Model):
     expiration_date = models.DateField(blank=True, null=True)
     total_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "ProductToInventories"
     
     def add_products_to_inventory(self):
         inventory_product = ProductInventory.objects.filter(product=self.product).first()
