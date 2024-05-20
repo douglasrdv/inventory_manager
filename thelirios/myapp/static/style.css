@@ -194,9 +194,18 @@
 
 .row{
     display: flex;
+    position: relative;
     margin: 0;
     padding: 10px 30px 10px 30px;
     height: 70px;
+}
+
+.half-row{
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0px 30px;
+    height: 35px;
 }
 
 .row1{
@@ -394,4 +403,20 @@
 
 .no-margin{
     margin: 0;
+}
+
+.abs{
+    height: 100%;
+    position: absolute;
+    float: right;
+}
+
+.abs-right{
+    top: 0;
+    right: 30px;
+}
+
+.abs-left{
+    top: 0;
+    left: 30px;
 }

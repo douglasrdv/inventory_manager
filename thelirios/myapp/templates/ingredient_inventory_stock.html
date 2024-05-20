@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/style.css">
+
+
+    <title>Estoque de Ingredientes</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="list-cont">
+    <p class="title">Estoque de Ingredientes</p>
+
+        {% for ingredient in ingredients %}
+        <div class="{% cycle 'row1' 'row2' %} half-row">
+            <div class="list-text centerh flex-full">
+                <div class="list-name"><p>{{ ingredient.ingredient.name }}</p></div>
+                <div class="list-name end"><p>{{ ingredient.quantity }}</p></div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="{% if ingredients|length|divisibleby:2 %}row1{% else %}row2{% endif %} row">
+            <div class="centerh abs abs-left">
+                <a class="list-btn" href="{%url 'inventory-ingredients-list'%}">Histórico</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
