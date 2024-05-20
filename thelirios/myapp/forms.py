@@ -31,8 +31,9 @@ class ProductForm(forms.ModelForm):
             "name",
             "description",
             "price",
+            "expiration_days"
         ]
-
+        
 
 class IngredientToInventoryForm(forms.ModelForm):
     class Meta:

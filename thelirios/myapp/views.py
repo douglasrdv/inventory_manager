@@ -238,7 +238,7 @@ def add_products_to_inventory(request):
     else:
         form = ProductToInventoryForm()
 
-    return render(request, 'add_recipe_to_inventory.html', {'form': form})
+    return render(request, 'add_product_to_inventory.html', {'form': form})
 
 def ingredient_stock(request):
     ingredients = IngredientInventory.objects.all()

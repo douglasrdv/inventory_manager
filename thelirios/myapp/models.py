@@ -102,6 +102,7 @@ class IngredientToInventory(models.Model):
 class RecipeInventory(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
     total_amount = models.IntegerField(blank=False, null=False)
+    total_cost = models.DecimalField(max_digits=6, decimal_places=2)
     expiration_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -125,6 +126,7 @@ class RecipeToInventory(models.Model):
             inventory_recipe = RecipeInventory.objects.create(
                 recipe=self.recipe,
                 total_amount=0,
+                total_cost=0,
                 expiration_date=self.expiration_date,
             )
 
@@ -137,7 +139,7 @@ class ProductInventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)
     quantity = models.IntegerField(blank=False, null=False)
     expiration_date = models.DateField(blank=True, null=True)
-    total_price = models.DecimalField(max_digits=6, decimal_places=2)
+    total_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -145,20 +147,21 @@ class ProductInventory(models.Model):
 class ProductToInventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)
     quantity = models.IntegerField(blank=False, null=False)
-    total_price = models.DecimalField(max_digits=6, decimal_places=2)
+    expiration_date = models.DateField(blank=True, null=True)
+    total_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
-    def add_product_to_inventory(self):
+    def add_products_to_inventory(self):
         inventory_product = ProductInventory.objects.filter(product=self.product).first()
 
         if not inventory_product:
             inventory_product = ProductInventory.objects.create(
                 product=self.product,
-                total_amount=0,
+                quantity=0,
                 expiration_date=self.expiration_date,
             )
 
         with transaction.atomic():
-            inventory_product.total_amount += self.amount_yield
+            inventory_product.quantity += self.quantity
             inventory_product.save()
     
