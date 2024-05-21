@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ingredient, Recipe, Product, IngredientInventory, RecipeInventory, IngredientToInventory, RecipeToInventory, ProductInventory, ProductToInventory
+from .models import Ingredient, Recipe, Product, IngredientInventory, IngredientToInventory, RecipeInventory, RecipeToInventory, ProductInventory, ProductToInventory
 
 
 admin.site.register(Ingredient)
