@@ -133,3 +133,8 @@ AUTHENTICATION_BACKEND = [
 SOCIALACCOUNT_PROVIDERS = {}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
