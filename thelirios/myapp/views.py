@@ -11,6 +11,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def profile(request):
+    return render(request, 'profile.html')
+
+
 def list_all_ingredients(request):
     ingredients = Ingredient.objects.all()
     return render(request, 'ingredient_list.html', {'ingredients': ingredients})
