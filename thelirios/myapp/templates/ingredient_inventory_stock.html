@@ -15,12 +15,11 @@
     <div class="list-cont">
     <p class="title">Estoque de Ingredientes</p>
 
-        {% for ingredient in ingredients %}
+        {% for name, quantity in ingredients.items %}
         <div class="{% cycle 'row1' 'row2' %} half-row">
             <div class="list-text centerh flex-full">
-                <div class="list-name"><p>{{ ingredient.ingredient.name }}</p></div>
-                <div class="list-name end"><p>R$ {{ ingredient.total_cost }}</p></div>
-                <div class="list-name end"><p>{{ ingredient.total_quantity }}</p></div>
+                <div class="list-name"><p>{{ name }}</p></div>
+                <div class="list-name end"><p>{{ quantity }}</p></div>
             </div>
         </div>
         {% endfor %}

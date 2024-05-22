@@ -15,11 +15,11 @@
     <div class="list-cont">
     <p class="title">Estoque de Produtos</p>
 
-        {% for product in products %}
-        <div class="{% cycle 'row1' 'row2' %} half-row">
+    {% for name, quantity in products.items %}
+    <div class="{% cycle 'row1' 'row2' %} half-row">
             <div class="list-text centerh flex-full">
-                <div class="list-name"><p>{{ product.product.name }}</p></div>
-                <div class="list-name end"><p>{{ product.quantity }}</p></div>
+                <div class="list-name"><p>{{ name }}</p></div>
+                <div class="list-name end"><p>{{ quantity }}</p></div>
             </div>
         </div>
         {% endfor %}

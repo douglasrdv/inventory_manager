@@ -241,13 +241,37 @@ def add_products_to_inventory(request):
     return render(request, 'add_product_to_inventory.html', {'form': form})
 
 def ingredient_stock(request):
-    ingredients = IngredientInventory.objects.all()
-    return render(request, 'ingredient_inventory_stock.html', {'ingredients': ingredients})
+    ingredients = IngredientToInventory.objects.all()
+    stockEntry = {}
+    for entry in ingredients:
+        name = entry.ingredient.name
+        if name in stockEntry:
+            stockEntry[name] += entry.quantity 
+        else:
+            stockEntry[name] = entry.quantity
+
+    return render(request, 'ingredient_inventory_stock.html', {'ingredients': stockEntry})
 
 def recipe_stock(request):
-    recipes = RecipeInventory.objects.all()
-    return render(request, 'recipe_inventory_stock.html', {'recipes': recipes})
+    recipes = RecipeToInventory.objects.all()
+    stockEntry = {}
+    for entry in recipes:
+        name = entry.recipe.name
+        if name in stockEntry:
+            stockEntry[name] += entry.quantity 
+        else:
+            stockEntry[name] = entry.quantity
+
+    return render(request, 'recipe_inventory_stock.html', {'recipes': stockEntry})
 
 def product_stock(request):
-    products = ProductInventory.objects.all()
-    return render(request, 'product_inventory_stock.html', {'products': products})
+    products = ProductToInventory.objects.all()
+    stockEntry = {}
+    for entry in products:
+        name = entry.product.name
+        if name in stockEntry:
+            stockEntry[name] += entry.quantity 
+        else:
+            stockEntry[name] = entry.quantity
+
+    return render(request, 'product_inventory_stock.html', {'products': stockEntry})
