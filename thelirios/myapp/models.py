@@ -53,7 +53,7 @@ class ProductRecipe(models.Model):
 
     def __str__(self):
         return f"{self.recipe.name} - {self.product.name} - {self.quantity}"
-    
+
 
 class IngredientInventory(models.Model):  
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
@@ -69,6 +69,16 @@ class IngredientInventory(models.Model):
         return self.ingredient.name
     
 
+class IngredientOutOfInventory(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.quantity} {self.ingredient}"
+
+
+
 class IngredientToInventory(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=False, null=False)
     quantity = models.IntegerField(blank=False, null=False)
@@ -79,6 +89,11 @@ class IngredientToInventory(models.Model):
 
     class Meta:
         verbose_name_plural = "IngredientToInventories"
+
+    
+    def __str__(self):
+        return self.ingredient.name
+
 
     def cost_per_unit(self):
         if self.quantity > 0:
@@ -117,7 +132,16 @@ class RecipeInventory(models.Model):
 
     def __str__(self):
         return self.recipe.name
-    
+
+
+class RecipeOutOfInventory(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.quantity} {self.recipe}"
+
 
 class RecipeToInventory(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
@@ -128,6 +152,11 @@ class RecipeToInventory(models.Model):
 
     class Meta:
         verbose_name_plural = "RecipeToInventories"
+
+    
+    def __str__(self):
+        return self.recipe.name
+
     
     def add_recipes_to_inventory(self):
         inventory_recipe = RecipeInventory.objects.filter(recipe=self.recipe).first()
@@ -157,6 +186,15 @@ class ProductInventory(models.Model):
         verbose_name_plural = "ProductInventories"
 
 
+class ProductOutOfInventory(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)
+    quantity = models.IntegerField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.quantity} {self.product}"
+
+
 class ProductToInventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)
     quantity = models.IntegerField(blank=False, null=False)
@@ -166,6 +204,11 @@ class ProductToInventory(models.Model):
 
     class Meta:
         verbose_name_plural = "ProductToInventories"
+    
+
+    def __str__(self):
+        return self.product.name
+
     
     def add_products_to_inventory(self):
         inventory_product = ProductInventory.objects.filter(product=self.product).first()

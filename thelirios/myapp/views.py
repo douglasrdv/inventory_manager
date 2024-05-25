@@ -2,8 +2,30 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from datetime import date, timedelta
-from .models import Ingredient, Recipe, Product, RecipeIngredient, ProductRecipe, IngredientToInventory, RecipeToInventory, ProductToInventory, RecipeInventory, IngredientInventory, ProductInventory
-from .forms import IngredientForm, RecipeForm, ProductForm, IngredientToInventoryForm, RecipeToInventoryForm, ProductToInventoryForm
+from itertools import chain
+
+from .models import (Ingredient,
+                     Recipe,
+                     Product,
+                     RecipeIngredient,
+                     ProductRecipe,
+                     IngredientToInventory,
+                     RecipeToInventory,
+                     ProductToInventory,
+                     IngredientOutOfInventory,
+                     RecipeOutOfInventory,
+                     ProductOutOfInventory,
+                     RecipeInventory,
+                     IngredientInventory,
+                     ProductInventory)
+
+from .forms import (IngredientForm,
+                    RecipeForm,
+                    ProductForm,
+                    IngredientToInventoryForm,
+                    RecipeToInventoryForm,
+                    ProductToInventoryForm,
+                    RemoveProductForm)
 
 
 
@@ -182,15 +204,31 @@ def product_details(request, product_id):
 
 
 def ingredient_inventory_list(request):
-    ingredients = IngredientToInventory.objects.all()
+    addedIngredients = IngredientToInventory.objects.all()
+    removedIngredients = IngredientOutOfInventory.objects.all()
+    for ingredient in removedIngredients:
+        ingredient.quantity *= -1
+    ingredients = sorted(chain(addedIngredients,removedIngredients), key=lambda instance: instance.created_at, reverse=True,)
     return render(request, 'ingredient_inventory_history.html', {'ingredients': ingredients})
 
+
 def recipe_inventory_list(request):
-    recipes = RecipeToInventory.objects.all()
+    addedRecipes = RecipeToInventory.objects.all()
+    removedRecipes = RecipeOutOfInventory.objects.all()
+    for recipe in removedRecipes:
+        recipe.quantity *= -1
+    recipes = sorted(chain(addedRecipes,removedRecipes), key=lambda instance: instance.created_at, reverse=True,)
+
     return render(request, 'recipe_inventory_history.html', {'recipes': recipes})
 
+
 def product_inventory_list(request):
-    products = ProductToInventory.objects.all()
+    addedProducts = ProductToInventory.objects.all()
+    removedProducts = ProductOutOfInventory.objects.all()
+    for product in removedProducts:
+        product.quantity *= -1
+    products = sorted(chain(addedProducts,removedProducts), key=lambda instance: instance.created_at, reverse=True,)
+
     return render(request, 'product_inventory_history.html', {'products': products})
 
 
@@ -210,6 +248,21 @@ def add_ingredients_to_inventory(request):
     return render(request, 'add_ingredient_to_inventory.html', {'form': form})
 
 
+def remove_products(request):
+
+    if request.method == 'POST':
+
+        form = RemoveProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inventory-products-list')
+
+    else:
+        form = RemoveProductForm()
+
+    return render(request, 'product_sold.html', {'form': form})
+
+
 def add_recipes_to_inventory(request):
 
     if request.method == 'POST':
@@ -219,13 +272,21 @@ def add_recipes_to_inventory(request):
             new_recipe_to_inventory = form.save(commit=False)
             new_recipe_to_inventory.expiration_date = date.today() + timedelta(days=new_recipe_to_inventory.recipe.expiration_days)
             new_recipe_to_inventory.save()
-            new_recipe_to_inventory.add_recipes_to_inventory()
+            #new_recipe_to_inventory.add_recipes_to_inventory()
+
+            recipeIngredients = RecipeIngredient.objects.filter(recipe=new_recipe_to_inventory.recipe)
+            for recipeIngredient in recipeIngredients:
+                removed_ingredient = recipeIngredient.ingredient
+                removed_ingredient_quantity = recipeIngredient.quantity * new_recipe_to_inventory.quantity
+                IngredientOutOfInventory.objects.create(ingredient=removed_ingredient, quantity=removed_ingredient_quantity)
+
             return redirect('inventory-recipes-list')
 
     else:
         form = RecipeToInventoryForm()
 
     return render(request, 'add_recipe_to_inventory.html', {'form': form})
+
 
 def add_products_to_inventory(request):
 
@@ -237,6 +298,13 @@ def add_products_to_inventory(request):
             new_product_to_inventory.expiration_date = date.today() + timedelta(days=new_product_to_inventory.product.expiration_days)
             new_product_to_inventory.save()
             new_product_to_inventory.add_products_to_inventory()
+
+            productRecipes = ProductRecipe.objects.filter(product=new_product_to_inventory.product)
+            for productRecipe in productRecipes:
+                removed_ingredient = productRecipe.recipe
+                removed_ingredient_quantity = productRecipe.quantity * new_product_to_inventory.quantity
+                RecipeOutOfInventory.objects.create(recipe=removed_ingredient, quantity=removed_ingredient_quantity)
+
             return redirect('inventory-products-list')
 
     else:
@@ -244,14 +312,54 @@ def add_products_to_inventory(request):
 
     return render(request, 'add_product_to_inventory.html', {'form': form})
 
+
 def ingredient_stock(request):
-    ingredients = IngredientInventory.objects.all()
-    return render(request, 'ingredient_inventory_stock.html', {'ingredients': ingredients})
+    addedIngredients = IngredientToInventory.objects.all()
+    removedIngredients = IngredientOutOfInventory.objects.all()
+    for ingredient in removedIngredients:
+        ingredient.quantity *= -1
+    ingredients = chain(addedIngredients,removedIngredients)
+    stockEntry = {}
+    for entry in ingredients:
+        name = entry.ingredient.name
+        if name in stockEntry:
+            stockEntry[name] += entry.quantity 
+        else:
+            stockEntry[name] = entry.quantity
+
+    return render(request, 'ingredient_inventory_stock.html', {'ingredients': stockEntry})
+
 
 def recipe_stock(request):
-    recipes = RecipeInventory.objects.all()
-    return render(request, 'recipe_inventory_stock.html', {'recipes': recipes})
+    addedRecipes = RecipeToInventory.objects.all()
+    removedRecipes = RecipeOutOfInventory.objects.all()
+    for recipe in removedRecipes:
+        recipe.quantity *= -1
+    recipes = chain(addedRecipes,removedRecipes)
+    stockEntry = {}
+    for entry in recipes:
+        name = entry.recipe.name
+        if name in stockEntry:
+            stockEntry[name] += entry.quantity 
+        else:
+            stockEntry[name] = entry.quantity
+
+    return render(request, 'recipe_inventory_stock.html', {'recipes': stockEntry})
+
 
 def product_stock(request):
-    products = ProductInventory.objects.all()
-    return render(request, 'product_inventory_stock.html', {'products': products})
+    addedProducts = ProductToInventory.objects.all()
+    removedProducts = ProductOutOfInventory.objects.all()
+    for product in removedProducts:
+        product.quantity *= -1
+    products = chain(addedProducts,removedProducts)
+    stockEntry = {}
+    for entry in products:
+        name = entry.product.name
+        if name in stockEntry:
+            stockEntry[name] += entry.quantity 
+        else:
+            stockEntry[name] = entry.quantity
+
+
+    return render(request, 'product_inventory_stock.html', {'products': stockEntry})

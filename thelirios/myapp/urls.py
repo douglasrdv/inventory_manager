@@ -30,5 +30,6 @@ urlpatterns = [
     path('product/<product_id>', views.product_details, name='product-details'),
     path("inventory/products-list/", views.product_inventory_list, name="inventory-products-list"),
     path("inventory/add-products", views.add_products_to_inventory, name="add-products"),
+    path("inventory/sold-products", views.remove_products, name="remove-products"),
     path("inventory/products-stock/", views.product_stock, name="products-stock"),  
 ]

@@ -19,12 +19,12 @@
         <div class="{% cycle 'row1' 'row2' %} row">
             <div class="list-text flex-full">
                 <div class="halfh">
-                    <div class="list-name"><p>{{ ingredient.quantity }} x {{ ingredient.ingredient.name }}</p></div>
-                    <div class="list-name end"><p>R$ {{ ingredient.total_cost }}</p></div>
+                    <div class="list-name"><p>{{ ingredient.quantity }} X {{ ingredient.ingredient.name }}</p></div>
+                    {% if ingredient.expiration_date %}<div class="list-name end"><p>R$ {{ ingredient.total_cost }}</p></div>{% endif %}
                 </div>
                 <div class="list-details halfh">
                     <div class="list-info"><i class="glyphicon glyphicon-calendar small-icon"></i><p>{{ ingredient.created_at }}</p></div>
-                    <div class="list-info"><i class="glyphicon glyphicon-alert small-icon"></i><p>{{ ingredient.expiration_date }}</p></div>
+                    {% if ingredient.expiration_date %}<div class="list-info"><i class="glyphicon glyphicon-alert small-icon"></i><p>{{ ingredient.expiration_date }}</p></div>{% endif %}
                 </div>
             </div>
         </div>

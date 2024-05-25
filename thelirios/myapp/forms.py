@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ingredient, Recipe, Product, IngredientToInventory, RecipeToInventory, ProductToInventory
+from .models import Ingredient, Recipe, Product, IngredientToInventory, RecipeToInventory, ProductToInventory, ProductOutOfInventory
 from .common.helper import MEASURE_TYPE_CHOICES as mtc
 
 
@@ -67,4 +67,12 @@ class ProductToInventoryForm(forms.ModelForm):
             'product',
             'quantity',
             'total_price',
+        ]
+
+class RemoveProductForm(forms.ModelForm):
+    class Meta:
+        model = ProductOutOfInventory
+        fields = [
+            'product',
+            'quantity',
         ]
