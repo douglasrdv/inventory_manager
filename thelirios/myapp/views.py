@@ -33,6 +33,12 @@ def index(request):
     return render(request, 'index.html')
 
 
+def combine_history(entry, used):
+    for item in used:
+            item.quantity *= -1
+    return sorted(chain(entry,used), key=lambda instance: instance.created_at, reverse=True,)     
+
+
 def profile(request):
     return render(request, 'profile.html')
 
