@@ -18,6 +18,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <input type="submit" value="Update">
+                <a class="list-btn" href="{% url 'ingredients-list' %}">Voltar</a>
             </form>
         </div>
     </div>
