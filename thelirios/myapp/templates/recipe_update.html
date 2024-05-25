@@ -14,6 +14,7 @@
     {{recipe.id}}
     <div class="form-cont">
         <div class="registration-form">
+            <p class="title">Receita: {{recipe.name}}</p>
             <form action="{%url 'recipe-update' recipe.id%}" method="post">
                 {% csrf_token %}
                 {{ form }}

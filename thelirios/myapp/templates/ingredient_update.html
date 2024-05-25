@@ -13,7 +13,7 @@
     {% include 'header.html' %}
     <div class="form-cont">
         <div class="registration-form">
-            <p class="title">{{ingredient.name}}</p>
+            <p class="title">Ingrediente: {{ingredient.name}}</p>
             <form action="{%url 'ingredient-update' ingredient.id%}" method="post">
                 {% csrf_token %}
                 {{ form }}
