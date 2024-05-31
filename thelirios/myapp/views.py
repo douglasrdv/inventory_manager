@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
+from django.apps import apps
 from datetime import date, timedelta
 from itertools import chain
 
@@ -43,19 +44,11 @@ def profile(request):
     return render(request, 'profile.html')
 
 
-def list_all_ingredients(request):
-    ingredients = Ingredient.objects.all()
-    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
-
-
-def recipes_list(request):
-    recipes = Recipe.objects.all()
-    return render(request, 'recipe_list.html', {'recipes': recipes})
-
-
-def list_all_products(request):
-    products = Product.objects.all()
-    return render(request, 'product_list.html', {'products': products})
+def list_all_objects(request, model_name):
+    model = apps.get_model('myapp', model_name)
+    objects = model.objects.all()
+    template_name = f'{model_name.lower()}s_list.html'
+    return render(request, template_name, {'objects': objects, 'model_name': model_name})
 
 
 def ingredient_registration(request):
