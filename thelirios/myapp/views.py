@@ -51,6 +51,21 @@ def list_all_objects(request, model_name):
     return render(request, template_name, {'objects': objects, 'model_name': model_name})
 
 
+def remove_products(request):
+
+    if request.method == 'POST':
+
+        form = RemoveProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inventory-products-list')
+
+    else:
+        form = RemoveProductForm()
+
+    return render(request, 'product_sold.html', {'form': form})
+
+
 def ingredient_registration(request):
 
     if request.method == 'POST':
@@ -64,71 +79,6 @@ def ingredient_registration(request):
         form = IngredientForm()
 
     return render(request, 'ingredient_registration.html', {'form': form})
-
-
-def ingredient_delete(request, id):
-    ingredient = Ingredient.objects.get(id=id)
-    ingredient.delete()
-
-    return redirect('ingredients-list')
-
-
-def ingredient_update(request, id):
-    ingredient = Ingredient.objects.get(id=id)
-
-    if request.method == 'POST':
-
-        form = IngredientForm(request.POST, instance=ingredient)
-        if form.is_valid():
-            form.save()
-            return redirect('ingredients-list')
-
-    else:
-        form = IngredientForm(instance=ingredient)
-
-    context = {'form': form, 'ingredient': ingredient}
-    return render(request, 'ingredient_update.html', context)
-
-
-def recipe_delete(request, id):
-    recipe = get_object_or_404(Recipe, id=id)
-    recipe.delete()
-    return redirect('recipes-list')
-
-
-def recipe_update(request, id):
-    recipe = Recipe.objects.get(id=id)
-
-    if request.method == 'POST':
-
-        form = RecipeForm(request.POST, instance=recipe)
-        if form.is_valid():
-            form.save()
-            return redirect('recipes-list')
-
-    else:
-        form = RecipeForm(instance=recipe)
-
-    context = {'form': form, 'recipe': recipe}
-    return render(request, 'recipe_update.html', context)
-
-
-def recipe_details(request, recipe_id):
-    recipe = Recipe.objects.get(pk=recipe_id)
-    IngredientFormset = inlineformset_factory(Recipe, RecipeIngredient, fields=('ingredient', 'quantity'), can_delete=True, extra=1)
-
-    if request.method == 'POST':
-        formset = IngredientFormset(request.POST, instance=recipe)
-
-        if formset.is_valid():
-
-            formset.save()
-
-            return HttpResponseRedirect('%i' %recipe.id)
-
-    formset = IngredientFormset(instance=recipe)
-
-    return render(request, 'recipe_details.html', {'formset' : formset, 'recipe_name': recipe.name})
 
 
 def recipe_registration(request):
@@ -161,10 +111,57 @@ def product_registration(request):
     return render(request, 'product_registration.html', {'form': form})
 
 
+def ingredient_delete(request, id):
+    ingredient = Ingredient.objects.get(id=id)
+    ingredient.delete()
+
+    return redirect('ingredients-list')
+
+
+def recipe_delete(request, id):
+    recipe = get_object_or_404(Recipe, id=id)
+    recipe.delete()
+    return redirect('recipes-list')
+
+
 def product_delete(request, id):
     product = get_object_or_404(Product, id=id)
     product.delete()
     return redirect('products-list')
+
+
+def ingredient_update(request, id):
+    ingredient = Ingredient.objects.get(id=id)
+
+    if request.method == 'POST':
+
+        form = IngredientForm(request.POST, instance=ingredient)
+        if form.is_valid():
+            form.save()
+            return redirect('ingredients-list')
+
+    else:
+        form = IngredientForm(instance=ingredient)
+
+    context = {'form': form, 'ingredient': ingredient}
+    return render(request, 'ingredient_update.html', context)
+
+
+def recipe_update(request, id):
+    recipe = Recipe.objects.get(id=id)
+
+    if request.method == 'POST':
+
+        form = RecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes-list')
+
+    else:
+        form = RecipeForm(instance=recipe)
+
+    context = {'form': form, 'recipe': recipe}
+    return render(request, 'recipe_update.html', context)
 
 
 def product_update(request, id):
@@ -182,6 +179,24 @@ def product_update(request, id):
 
     context = {'form': form, 'product': product}
     return render(request, 'product_update.html', context)
+
+
+def recipe_details(request, recipe_id):
+    recipe = Recipe.objects.get(pk=recipe_id)
+    IngredientFormset = inlineformset_factory(Recipe, RecipeIngredient, fields=('ingredient', 'quantity'), can_delete=True, extra=1)
+
+    if request.method == 'POST':
+        formset = IngredientFormset(request.POST, instance=recipe)
+
+        if formset.is_valid():
+
+            formset.save()
+
+            return HttpResponseRedirect('%i' %recipe.id)
+
+    formset = IngredientFormset(instance=recipe)
+
+    return render(request, 'recipe_details.html', {'formset' : formset, 'recipe_name': recipe.name})
 
 
 def product_details(request, product_id):
@@ -245,21 +260,6 @@ def add_ingredients_to_inventory(request):
         form = IngredientToInventoryForm()
 
     return render(request, 'add_ingredient_to_inventory.html', {'form': form})
-
-
-def remove_products(request):
-
-    if request.method == 'POST':
-
-        form = RemoveProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('inventory-products-list')
-
-    else:
-        form = RemoveProductForm()
-
-    return render(request, 'product_sold.html', {'form': form})
 
 
 def add_recipes_to_inventory(request):
