@@ -5,7 +5,12 @@ urlpatterns = [
     path('', index, name='index'),
 
     # Ingredients urls
-    path('new-ingredient/', ingredient_registration, name='new-ingredient'),
+    path('new-ingredient/', object_registration, {
+        'model_name': 'Ingredient',
+        'form_class': IngredientForm,
+        'success_url_name': 'ingredients-list'  # Nome da URL para redirecionamento após sucesso
+    }, name='new-ingredient'),
+
     path('ingredients-list/', list_all_objects, {'model_name': 'Ingredient'}, name='ingredients-list'),
     path('ingredient-delete/<int:id>/', ingredient_delete, name='ingredient-delete'),
     path('ingredient-update/<int:id>/', ingredient_update, name='ingredient-update'),
@@ -14,7 +19,13 @@ urlpatterns = [
     path('inventory/ingredients-stock/', ingredient_stock, name='ingredients-stock'),
 
     # Recipes urls
-    path('new-recipe', recipe_registration, name='new-recipe'),
+    path('new-recipe/', object_registration, {
+        'model_name': 'Recipe',  
+        'form_class': RecipeForm,  
+        'success_url_name': 'recipes-list',  # Nome da URL para redirecionamento após sucesso
+        'detail_url_name': 'recipe-details'  # Nome da URL para redirecionamento para detalhes
+    }, name='new-recipe'),
+
     path('recipes-list/', list_all_objects, {'model_name': 'Recipe'}, name='recipes-list'),
     path('recipe-delete/<int:id>', recipe_delete, name='recipe-delete'),
     path('recipe-update/<int:id>/', recipe_update, name='recipe-update'),
@@ -24,7 +35,13 @@ urlpatterns = [
     path('inventory/recipes-stock/', recipe_stock, name='recipes-stock'),   
 
     # Products urls
-    path('new-product/', product_registration, name='new-product'),
+    path('new-product/', object_registration, {
+        'model_name': 'Product',
+        'form_class': ProductForm,
+        'success_url_name': 'products-list',  # Nome da URL para redirecionamento após sucesso
+        'detail_url_name': 'product-details'  # Nome da URL para redirecionamento para detalhes
+    }, name='new-product'),
+
     path('products-list/', list_all_objects, {'model_name': 'Product'}, name='products-list'),
     path('product-delete/<int:id>/', product_delete, name='product-delete'),
     path('product-update/<int:id>/', product_update, name='product-update'),
