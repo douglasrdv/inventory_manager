@@ -15,10 +15,7 @@ from .models import (Ingredient,
                      ProductToInventory,
                      IngredientOutOfInventory,
                      RecipeOutOfInventory,
-                     ProductOutOfInventory,
-                     RecipeInventory,
-                     IngredientInventory,
-                     ProductInventory)
+                     ProductOutOfInventory,)
 
 from .forms import (IngredientForm,
                     RecipeForm,
@@ -66,49 +63,28 @@ def remove_products(request):
     return render(request, 'product_sold.html', {'form': form})
 
 
-def ingredient_registration(request):
+def object_registration(request, model_name, form_class,
+                        success_url_name, detail_url_name=None):
 
+    model = apps.get_model('myapp', model_name)
+    
     if request.method == 'POST':
-
-        form = IngredientForm(request.POST)
+        # Create a form instance with the POST data
+        form = form_class(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('ingredients-list')
-
+            new_object = form.save()
+            # If a detail URL name is provided, redirect to that URL
+            if detail_url_name:
+                return redirect(detail_url_name, id=new_object.id)
+            # Otherwise, redirect to the success URL
+            return redirect(success_url_name)
     else:
-        form = IngredientForm()
-
-    return render(request, 'ingredient_registration.html', {'form': form})
-
-
-def recipe_registration(request):
-
-    if request.method == 'POST':
-
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            new_recipe = form.save()
-            return redirect('recipe-details', recipe_id=new_recipe.id)
-
-    else:
-        form = RecipeForm()
-
-    return render(request, 'recipe_registration.html', {'form': form})
-
-
-def product_registration(request):
-
-    if request.method == 'POST':
-
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            new_product = form.save()
-            return redirect('product-details', product_id=new_product.id)
-
-    else:
-        form = ProductForm()
-
-    return render(request, 'product_registration.html', {'form': form})
+        # If the request method is not POST, create an empty form
+        form = form_class()
+    
+    # Define the template name based on the model name
+    template_name = f'{model_name.lower()}_registration.html'
+    return render(request, template_name, {'form': form})
 
 
 def ingredient_delete(request, id):
