@@ -8,7 +8,7 @@ urlpatterns = [
     path('new-ingredient/', object_registration, {
         'model_name': 'Ingredient',
         'form_class': IngredientForm,
-        'success_url_name': 'ingredients-list'  # Nome da URL para redirecionamento após sucesso
+        'success_url_name': 'ingredients-list'
     }, name='new-ingredient'),
 
     path('ingredients-list/', list_all_objects, {'model_name': 'Ingredient'}, name='ingredients-list'),
@@ -22,8 +22,8 @@ urlpatterns = [
     path('new-recipe/', object_registration, {
         'model_name': 'Recipe',  
         'form_class': RecipeForm,  
-        'success_url_name': 'recipes-list',  # Nome da URL para redirecionamento após sucesso
-        'detail_url_name': 'recipe-details'  # Nome da URL para redirecionamento para detalhes
+        'success_url_name': 'recipes-list',
+        'detail_url_name': 'recipe-details'
     }, name='new-recipe'),
 
     path('recipes-list/', list_all_objects, {'model_name': 'Recipe'}, name='recipes-list'),
@@ -38,8 +38,8 @@ urlpatterns = [
     path('new-product/', object_registration, {
         'model_name': 'Product',
         'form_class': ProductForm,
-        'success_url_name': 'products-list',  # Nome da URL para redirecionamento após sucesso
-        'detail_url_name': 'product-details'  # Nome da URL para redirecionamento para detalhes
+        'success_url_name': 'products-list',
+        'detail_url_name': 'product-details'
     }, name='new-product'),
 
     path('products-list/', list_all_objects, {'model_name': 'Product'}, name='products-list'),
