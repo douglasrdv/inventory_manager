@@ -277,14 +277,20 @@ def add_recipes_to_inventory(request):
         if form.is_valid():
             new_recipe_to_inventory = form.save(commit=False)
             new_recipe_to_inventory.expiration_date = date.today() + timedelta(days=new_recipe_to_inventory.recipe.expiration_days)
-            new_recipe_to_inventory.save()
             #new_recipe_to_inventory.add_recipes_to_inventory()
-
+            recipe_cost = 0
             recipeIngredients = RecipeIngredient.objects.filter(recipe=new_recipe_to_inventory.recipe)
+            
             for recipeIngredient in recipeIngredients:
                 removed_ingredient = recipeIngredient.ingredient
                 removed_ingredient_quantity = recipeIngredient.quantity * new_recipe_to_inventory.quantity
+                oldest_ingredient = IngredientToInventory.objects.filter(ingredient=recipeIngredient.ingredient).order_by('created_at').last()
+                recipe_cost += float(oldest_ingredient.cost_per_unit()) * removed_ingredient_quantity
+
                 IngredientOutOfInventory.objects.create(ingredient=removed_ingredient, quantity=removed_ingredient_quantity)
+            
+            new_recipe_to_inventory.cost = recipe_cost
+            new_recipe_to_inventory.save()
 
             return redirect('inventory-recipes-list')
 
@@ -336,11 +342,12 @@ def ingredient_stock(request):
     return render(request, 'ingredient_inventory_stock.html', {'ingredients': stockEntry})
 
 
-def recipe_stock(request):
+def recipe_stock(request):    #get list of recipes in stock
     addedRecipes = RecipeToInventory.objects.all()
     removedRecipes = RecipeOutOfInventory.objects.all()
     for recipe in removedRecipes:
         recipe.quantity *= -1
+        #TODO considerar used
     recipes = chain(addedRecipes,removedRecipes)
     stockEntry = {}
     for entry in recipes:

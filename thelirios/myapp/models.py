@@ -86,6 +86,7 @@ class IngredientToInventory(models.Model):
     expiration_date = models.DateField(editable=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    used = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "IngredientToInventories"
@@ -147,6 +148,7 @@ class RecipeToInventory(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=False, null=False)
     quantity = models.IntegerField(blank=False, null=False)
     amount_yield = models.FloatField(blank=False, null=False)
+    cost = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     expiration_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -20,11 +20,12 @@
             <div class="list-text flex-full">
                 <div class="halfh">
                     <div class="list-name"><p>{{ recipe.quantity }} X {{ recipe.recipe.name }}</p></div>
-                    {% if recipe.expiration_date %}<div class="list-name end"><div class="glyphicon glyphicon-scale medium-icon"></div><p>{{ recipe.amount_yield }} {{ recipe.recipe.measure_type }}</p></div>{% endif %}
+                    {% if recipe.expiration_date %}<div class="list-name end"><p>- R$ {{ recipe.cost }}</p></div>{% endif %}
                 </div>
                 <div class="list-details halfh">
                     <div class="list-info"><i class="glyphicon glyphicon-calendar small-icon"></i><p>{{ recipe.created_at }}</p></div>
                     {% if recipe.expiration_date %}<div class="list-info"><i class="glyphicon glyphicon-alert small-icon"></i><p>{{ recipe.expiration_date }}</p></div>{% endif %}
+                    {% if recipe.expiration_date %}<div class="list-name end"><div class="glyphicon glyphicon-scale medium-icon"></div><p>{{ recipe.amount_yield }} {{ recipe.recipe.measure_type }}</p></div>{% endif %}
                 </div>
             </div>
         </div>
